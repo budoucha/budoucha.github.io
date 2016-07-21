@@ -1,10 +1,5 @@
 var kkn;
-/*
-function preload() {
-  kkn = loadImage("data/kiken.png");
-};*/
-
-var kknX,kknY,trslX,trslY
+var kknX,kknY,distX,distY,relX,relY;
 var drag;
 
 function setup() {
@@ -14,42 +9,52 @@ function setup() {
   kkn = loadImage("data/kiken.png");
   kknX=width/2;kknY=height/2;
   fill(0,64);
+  noStroke();
 }
 
 function draw() {
   background(255);
 
   push();
-  textSize(18);
-  textAlign(LEFT,TOP);
-  fill(0,128);
+  fill(128);
+  textSize(18);  textAlign(LEFT,TOP);
   text("\"kiken drag\" by budoucha",0,0);
   pop();
 
-  trslX=kknX-touchX; trslY=kknY-touchY;
+  //rect(0,0,50,50);
+  ellipse(touchX,touchY,60,60);
+  update();
   image(kkn,kknX,kknY);
+}
 
-  noStroke();
-  //ellipse(touchX,touchY,20,20);
 
+function update(){
+  distX=kknX-touchX; distY=kknY-touchY;
+  if(abs(distX)<kkn.width/2 && abs(distY)<kkn.height/2){cursor(MOVE);}
+  else{cursor(ARROW);}
+
+  if(drag){
+  kknX = touchX+relX; kknY = touchY+relY;
+  }
 }
 
 function touchStarted(){fill(255,0,0,64);
-  if(abs(trslX)<kkn.width/2&&abs(trslY)<kkn.height/2){drag=true;}
-  else{drag=false;}
-  return false;
+  distX=kknX-touchX; distY=kknY-touchY;
+  if(abs(distX)<kkn.width/2 && abs(distY)<kkn.height/2){fill(0,255,0,64);
+    relX =distX; relY = distY;
+    drag=true;
+  }
 }
 
-function touchMoved(){fill(0,255,0,64);
-  if(drag==true){kknX=touchX+trslX;kknY=touchY+trslY;}
-  return false;
-}
-
-function touchEnded(){fill(0,0,255,64);
+function touchEnded(){
+  fill(0,0,255,64);
   drag=false;
+}
+
+function touchMoved(){
   return false;
 }
 
-function windowResized() {
+function windowResized(){
   resizeCanvas(windowWidth, windowHeight);
 }
