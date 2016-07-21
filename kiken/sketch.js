@@ -29,13 +29,13 @@ function draw() {
 
 
 function update(){
-  distX=kknX-touchX; distY=kknY-touchY;
-  if(abs(distX)<kkn.width/2 && abs(distY)<kkn.height/2){cursor(MOVE);}
-  else{cursor(ARROW);}
-
   if(drag){
   kknX = touchX+relX; kknY = touchY+relY;
   }
+
+  distX=kknX-touchX; distY=kknY-touchY;
+  if(abs(distX)<kkn.width/2 && abs(distY)<kkn.height/2){cursor(MOVE);}
+  else{cursor(ARROW);}
 }
 
 function touchStarted(){fill(255,0,0,64);
