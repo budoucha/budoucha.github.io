@@ -22,7 +22,7 @@ function draw() {
   pop();
 
   //rect(0,0,50,50);
-  ellipse(touchX,touchY,60,60);
+  //ellipse(touchX,touchY,60,60);
   update();
   image(kkn,kknX,kknY);
 }
@@ -38,16 +38,16 @@ function update(){
   else{cursor(ARROW);}
 }
 
-function touchStarted(){fill(255,0,0,64);
+function touchStarted(){//fill(255,0,0,64);
   distX=kknX-touchX; distY=kknY-touchY;
-  if(abs(distX)<kkn.width/2 && abs(distY)<kkn.height/2){fill(0,255,0,64);
+  if(abs(distX)<kkn.width/2 && abs(distY)<kkn.height/2){//fill(0,255,0,64);
     relX =distX; relY = distY;
     drag=true;
   }
 }
 
 function touchEnded(){
-  fill(0,0,255,64);
+  //fill(0,0,255,64);
   drag=false;
 }
 
