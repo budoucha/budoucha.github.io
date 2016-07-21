@@ -19,6 +19,13 @@ function setup() {
 function draw() {
   background(255);
 
+  push();
+  textSize(18);
+  textAlign(LEFT,TOP);
+  fill(0,128);
+  text("\"kiken drag\" by budoucha",0,0);
+  pop();
+
   trslX=kknX-mouseX; trslY=kknY-mouseY;
   image(kkn,kknX,kknY);
 
