@@ -37,14 +37,17 @@ function draw() {
 function touchStarted(){fill(255,0,0,64);
   if(abs(trslX)<kkn.width/2&&abs(trslY)<kkn.height/2){drag=true;}
   else{drag=false;}
+  return false;
 }
 
 function touchMoved(){fill(0,255,0,64);
   if(drag==true){kknX=touchX+trslX;kknY=touchY+trslY;}
+  return false;
 }
 
 function touchEnded(){fill(0,0,255,64);
   drag=false;
+  return false;
 }
 
 function windowResized() {
