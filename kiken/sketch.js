@@ -39,3 +39,7 @@ function mouseDragged(){fill(0,255,0,64);
 function mouseReleased(){fill(0,0,255,64);
   drag=false;
 }
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
