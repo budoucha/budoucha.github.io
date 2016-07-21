@@ -26,24 +26,24 @@ function draw() {
   text("\"kiken drag\" by budoucha",0,0);
   pop();
 
-  trslX=kknX-mouseX; trslY=kknY-mouseY;
+  trslX=kknX-touchX; trslY=kknY-touchY;
   image(kkn,kknX,kknY);
 
   noStroke();
-  //ellipse(mouseX,mouseY,20,20);
+  //ellipse(touchX,touchY,20,20);
 
 }
 
-function mousePressed(){fill(255,0,0,64);
+function touchStarted(){fill(255,0,0,64);
   if(abs(trslX)<kkn.width/2&&abs(trslY)<kkn.height/2){drag=true;}
   else{drag=false;}
 }
 
-function mouseDragged(){fill(0,255,0,64);
-  if(drag==true){kknX=mouseX+trslX;kknY=mouseY+trslY;}
+function touchMoved(){fill(0,255,0,64);
+  if(drag==true){kknX=touchX+trslX;kknY=touchY+trslY;}
 }
 
-function mouseReleased(){fill(0,0,255,64);
+function touchEnded(){fill(0,0,255,64);
   drag=false;
 }
 
