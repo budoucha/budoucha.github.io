@@ -1,0 +1,27 @@
+html{background: #422;
+  color:#fff;
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+  height: 100%;
+}
+
+body{
+  height:100%;
+  background: linear-gradient(to bottom, #334, #556);padding-top: 16px;padding: 10px}
+
+
+.box{margin-top: 8px;width:480px;
+  background:
+    linear-gradient(45deg,transparent 2%,#f22 0,98%,transparent 0);
+  opacity: 0.8;
+   overflow: hidden;padding: 11px;}
+
+.box:hover{ transition: all 0.3s;width:640px;
+  background:
+    linear-gradient(45deg,transparent 2%,#2f2 0,98%,transparent 98%);
+  mix-blend-mode:screen ;
+  opacity:0.8;}
+
+
+
+a{text-decoration: none;color: inherit;}
+a:hover{color: white;}
