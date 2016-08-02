@@ -1,26 +1,30 @@
-html{background: #422;
+html{background: #421;
   color:#fff;
-  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+  font-family: 'Open Sans','Noto Sans JP', sans-serif;
   height: 100%;
+  padding:0px;
 }
 
 body{
-  height:100%;
-  background: linear-gradient(to bottom, #334, #556);padding-top: 16px;padding: 10px}
+  background: linear-gradient(to bottom, #334, #556);
+  padding: 12%;
+  padding-top: 2%;}
 
 
-.box{margin-top: 8px;width:480px;
+.box{margin-top: 8px;width:100%;height:80px;
+  font-family: 'Inconsolata', monospace;
   background:
-    linear-gradient(45deg,transparent 2%,#f22 0,98%,transparent 0);
-  opacity: 0.8;
-   overflow: hidden;padding: 11px;}
+    linear-gradient(45deg,transparent 12px,#d22 0,98%,transparent 0);
+  opacity: 0.4;
+  overflow: hidden;padding: 11px;}
 
-.box:hover{ transition: all 0.3s;width:640px;
+.box:hover{ transition: all 0.4s;width:160%;
   background:
-    linear-gradient(45deg,transparent 2%,#2f2 0,98%,transparent 98%);
+    linear-gradient(45deg,transparent 12px,#2d2 0,98%,transparent 0);
   mix-blend-mode:screen ;
   opacity:0.8;}
 
+.boxes{width:440px;}
 
 
 a{text-decoration: none;color: inherit;}
