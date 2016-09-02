@@ -43,7 +43,7 @@ function draw() {
   //text("display density: " + displayDensity(), 0, vgrid * 3 - tsize * 3);
   //text("display size: " + displayWidth + "*" + displayHeight, 0, vgrid * 3 - tsize * 2);
   //text("window size: " + windowWidth + "*" + windowHeight, 0, vgrid * 3 - tsize);
-  text("canvas size: " + width + "*" + height, 0, vgrid * 3);
+  text("canvas size: " + width + " * " + height, 0, vgrid * 3);
   text(nf(frameRate(), 2, 1) + " fps", 0, vgrid * 3 + tsize);
   //text("pixel density: " + pixelDensity(), 0, vgrid * 3+tsize*2);
 }
