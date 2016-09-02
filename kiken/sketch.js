@@ -4,6 +4,7 @@ var drag;
 
 function setup() {
   createCanvas(windowWidth,windowHeight,P2D);
+  pixelDensity(1);
   imageMode(CENTER);
 
   kkn = loadImage("data/kiken.png");
