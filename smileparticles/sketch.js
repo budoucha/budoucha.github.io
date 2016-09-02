@@ -3,8 +3,8 @@ var cnt;
 
 function setup() {
   createCanvas(windowWidth, windowHeight, P2D);
+  pixelDensity(1);
   du = min(width, height) / 4;
-  dus = max(width, height) / 4;
   background(255);
 }
 
