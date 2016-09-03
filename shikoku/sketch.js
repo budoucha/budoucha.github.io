@@ -22,6 +22,7 @@ function setup() {
   offset = -height / 2 + nihon.height / 2 * scaleRate;
   buttonX=hgrid*2;
   buttonY=vgrid*2
+  pixelDensity(1);
 }
 
 function draw() {
@@ -34,8 +35,6 @@ function draw() {
   image(shikoku, 0, y + offset/scaleRate);
   
   pop();
-  stroke("#FF0000");
-  line(0, -height / 2 , 0, height / 2);
 
   image(button,buttonX,buttonY,button.width*scaleRate,button.height*scaleRate);
 }
