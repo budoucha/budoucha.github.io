@@ -52,10 +52,7 @@ function mouseClicked() {
   && mouseY < height / 2 + buttonY + button.height * scaleRate / 2) 
   {
     nanka();
-    //println(1);
-  } else {
-    println(0);
-  }
+  } 
 }
 
 
