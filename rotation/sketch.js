@@ -23,6 +23,8 @@ function draw() {
   rectMode(CORNERS);
   textAlign(CENTER, CENTER);
   textSize(tsize);
+  
+
   translate(width / 2, height / 2);
   fill(255);
   text("ROTATION\nTEST", 0, -vgrid * 3);
@@ -38,7 +40,7 @@ function draw() {
 
   fill("#0000FF");
   text(nfp(rZ, 3, 2) + " m/s/s", 0, vgrid);
-  rect((rZ-180) * rateZ * (rZ < 0), vgrid + tsize - rectH, (rZ-180) * rateZ * (rZ > 0), vgrid + tsize + rectH);
+  rect(-width/2, vgrid + tsize - rectH, rZ * rateZ, vgrid + tsize + rectH);
 
   fill(255);
   //text("display density: " + displayDensity(), 0, vgrid * 3 - tsize * 3);
