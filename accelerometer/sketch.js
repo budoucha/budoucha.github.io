@@ -14,9 +14,9 @@ function setup() {
 }
 
 function draw() {
-  rX = rotationX;
-  rY = rotationY;
-  rZ = rotationZ;
+  aX = accelerationX;
+  aY = accelerationY;
+  aZ = accelerationZ;
   background(0);
   rectMode(CORNERS);
   textAlign(CENTER, CENTER);
@@ -24,20 +24,20 @@ function draw() {
 
   translate(width / 2, height / 2);
   fill(255);
-  text("ROTATION\nTEST", 0, -vgrid * 3);
+  text("ACCELEROMETER\nTEST", 0, -vgrid * 3);
 
 
   fill("#FF0000");
-  text(nfp(rX, 3, 2) + " m/s/s", 0, -vgrid);
-  rect(rX * rate * (rX < 0), -vgrid + tsize - rectH, rX * rate * (rX > 0), -vgrid + tsize + rectH);
+  text(nfp(aX, 3, 2) + " m/s/s", 0, -vgrid);
+  rect(aX * rate * (aX < 0), -vgrid + tsize - rectH, aX * rate * (aX > 0), -vgrid + tsize + rectH);
 
   fill("#00FF00");
-  text(nfp(rY, 3, 2) + " m/s/s", 0, 0);
-  rect(rY * rate * (rY < 0), tsize - rectH, rY * rate * (rY > 0), tsize + rectH);
+  text(nfp(aY, 3, 2) + " m/s/s", 0, 0);
+  rect(aY * rate * (aY < 0), tsize - rectH, aY * rate * (aY > 0), tsize + rectH);
 
   fill("#0000FF");
-  text(nfp(rZ, 3, 2) + " m/s/s", 0, vgrid);
-  rect(rZ * rate * (rZ < 0), vgrid + tsize - rectH, rZ * rate * (rZ > 0), vgrid + tsize + rectH);
+  text(nfp(aZ, 3, 2) + " m/s/s", 0, vgrid);
+  rect(aZ * rate * (aZ < 0), vgrid + tsize - rectH, aZ * rate * (aZ > 0), vgrid + tsize + rectH);
 
   fill(255);
   //text("display density: " + displayDensity(), 0, vgrid * 3 - tsize * 3);
