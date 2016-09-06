@@ -7,9 +7,9 @@ function setup() {
   du = min(vgrid, hgrid);
 
   tsize = du / 2;
-  rateX = width / 180;
-  rateY = width / 90;
-  rateZ = width / 180;
+  rateX = width / 360;
+  rateY = width / 180;
+  rateZ = width / 360;
   rectH = tsize / 2;
 
   pixelDensity(1);
@@ -23,7 +23,6 @@ function draw() {
   rectMode(CORNERS);
   textAlign(CENTER, CENTER);
   textSize(tsize);
-
   translate(width / 2, height / 2);
   fill(255);
   text("ROTATION\nTEST", 0, -vgrid * 3);
