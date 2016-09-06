@@ -7,9 +7,11 @@ function setup() {
   du = min(vgrid, hgrid);
 
   tsize = du / 2;
-  rate = width / 180;
+  rateX = width / 180;
+  rateY = width / 90;
+  rateZ = width / 180;
   rectH = tsize / 2;
-  
+
   pixelDensity(1);
 }
 
@@ -29,15 +31,15 @@ function draw() {
 
   fill("#FF0000");
   text(nfp(rX, 3, 2) + " m/s/s", 0, -vgrid);
-  rect(rX * rate * (rX < 0), -vgrid + tsize - rectH, rX * rate * (rX > 0), -vgrid + tsize + rectH);
+  rect(rX * rateX * (rX < 0), -vgrid + tsize - rectH, rX * rateX * (rX > 0), -vgrid + tsize + rectH);
 
   fill("#00FF00");
   text(nfp(rY, 3, 2) + " m/s/s", 0, 0);
-  rect(rY * rate * (rY < 0), tsize - rectH, rY * rate * (rY > 0), tsize + rectH);
+  rect(rY * rateY * (rY < 0), tsize - rectH, rY * rateY * (rY > 0), tsize + rectH);
 
   fill("#0000FF");
   text(nfp(rZ, 3, 2) + " m/s/s", 0, vgrid);
-  rect(rZ * rate * (rZ < 0), vgrid + tsize - rectH, rZ * rate * (rZ > 0), vgrid + tsize + rectH);
+  rect((rZ-180) * rateZ * (rZ < 0), vgrid + tsize - rectH, (rZ-180) * rateZ * (rZ > 0), vgrid + tsize + rectH);
 
   fill(255);
   //text("display density: " + displayDensity(), 0, vgrid * 3 - tsize * 3);
