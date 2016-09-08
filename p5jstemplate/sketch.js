@@ -11,12 +11,14 @@ function setup() {
   hgrid = width / 8;
   vgrid = height / 8;
   tsize = short / 8;
+  transX = width / 2;
+  transY = height / 2;
 }
 
 function draw() {
   background(255);
   push();
-  translate(width / 2, height / 2);
+  translate(transX, transY);
   fill(0);
   textSize(tsize);
   textAlign(CENTER, CENTER);
