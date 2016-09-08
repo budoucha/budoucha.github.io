@@ -1,6 +1,5 @@
 function preload() {
   imageMode(CENTER);
-  //button = loadImage(".png");
   pixelDensity(1);
 }
 
@@ -17,6 +16,7 @@ function setup() {
   ellipseRate = short;
 
   mic = new p5.AudioIn();
+  mic.enabled=true;
   mic.start();
 }
 
