@@ -1,7 +1,8 @@
 function preload() {
   imageMode(CENTER);
-  //button = loadImage(".png");
   pixelDensity(1);
+  shakeCount = 0;
+  notShaked = 45;
 }
 
 function setup() {
@@ -11,23 +12,37 @@ function setup() {
   hgrid = width / 8;
   vgrid = height / 8;
   tsize = short / 8;
+  setShakeThreshold(notShaked * 1.8);
+  shakeEnabled = 0;
 }
 
 function draw() {
-  background(255);
+  background(255 * shakeEnabled);
   push();
   translate(width / 2, height / 2);
-  fill(0);
+  fill(255);
   textSize(tsize);
   textAlign(CENTER, CENTER);
-  text("hoge", 0, 0);
+  text(shakeCount, 0, 0);
   pop();
   update();
 }
 
+
 function update() {
+  if (sqrt(pow(accelerationX, 2) + pow(accelerationY, 2)) < notShaked) {
+    shakeEnabled = 0;
+  }
 }
 
 function windowResized() {
   setup();
+}
+
+
+function deviceShaken() {
+  if (shakeEnabled === 0) {
+    shakeCount++;
+  }
+  shakeEnabled = 1;
 }

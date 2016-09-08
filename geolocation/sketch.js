@@ -1,7 +1,6 @@
 function preload() {
   imageMode(CENTER);
   pixelDensity(1);
-  locationData = getCurrentPosition();
 }
 
 function setup() {
@@ -16,15 +15,19 @@ function setup() {
   } else {
     fill("#FF0000");
   }
+
+  //if(navigator.geolocation){fill("#00FF00");}
 }
 
+
+
 function draw() {
-  background(255);
+  //  background(255);
   update();
   rect(0, 0, 30, 30);
   push();
   translate(width / 2, height / 2);
-  text("longitude: "+locationData.longitude+"\nlatitude: "+locationData.latitude,0,0);
+
 
   pop();
 
@@ -38,4 +41,15 @@ function update() {
 
 function windowResized() {
   setup();
+}
+
+
+function hoge(position) {
+  text("done", 0, 0);
+  //text("longitude: "+ position.longitude+"\nlatitude: "+ position.latitude,0,0); 
+}
+
+function errhoge(position) {
+  text("err", 0, 0);
+  //text("longitude: "+ position.longitude+"\nlatitude: "+ position.latitude,0,0); 
 }
