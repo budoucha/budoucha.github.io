@@ -12,6 +12,8 @@ function setup() {
   long = max(width, height);
   hgrid = width / 8;
   vgrid = height / 8;
+  transX = width / 2;
+  transY = height / 2;
 
   if (width < height) {
     scaleRate = width / nihon.width;
@@ -26,9 +28,9 @@ function setup() {
 }
 
 function draw() {
+  update();
   background(255);
-  translate(width / 2, height / 2);
-
+  translate(transX, transY);
   push();
   scale(scaleRate);
   image(nihon, 0, 0 + offset / scaleRate);
@@ -39,6 +41,13 @@ function draw() {
   image(button, buttonX, buttonY, button.width * scaleRate, button.height * scaleRate);
 }
 
+function update() {
+  if (abs(mouseX - transX - buttonX) < button.width * scaleRate / 2 && abs(mouseY - transY - buttonY) < button.height * scaleRate / 2) {
+    cursor(HAND);
+  } else {
+    cursor(ARROW);
+  }
+}
 
 function windowResized() {
   setup();
@@ -46,13 +55,9 @@ function windowResized() {
 
 
 function mouseClicked() {
-  if (mouseX > width / 2 + buttonX - button.width * scaleRate / 2 
-  && mouseX < width / 2 + buttonX + button.width * scaleRate / 2 
-  && mouseY > height / 2 + buttonY - button.height * scaleRate / 2 
-  && mouseY < height / 2 + buttonY + button.height * scaleRate / 2) 
-  {
+  if (mouseX > width / 2 + buttonX - button.width * scaleRate / 2 && mouseX < width / 2 + buttonX + button.width * scaleRate / 2 && mouseY > height / 2 + buttonY - button.height * scaleRate / 2 && mouseY < height / 2 + buttonY + button.height * scaleRate / 2) {
     nanka();
-  } 
+  }
 }
 
 
