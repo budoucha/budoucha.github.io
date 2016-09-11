@@ -50,6 +50,9 @@
     ellipse(0, ellPos, levelRange, levelRange);
     ellipse(0, ellPos, levelRange / 2, levelRange / 2);
     ellipse(0, ellPos, levelRange / 4, levelRange / 4);
+    line(-width/2,ellPos-levelRange,width/2,ellPos-levelRange);
+    line(-width/2,ellPos-levelRange/2,width/2,ellPos-levelRange/2);
+    line(-width/2,ellPos-levelRange/4,width/2,ellPos-levelRange/4);
 
     fill(255, 128);
     noStroke();
