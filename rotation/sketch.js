@@ -16,9 +16,9 @@ function setup() {
 }
 
 function draw() {
+  rZ = rotationZ;
   rX = rotationX;
   rY = rotationY;
-  rZ = rotationZ;
   background(0);
   rectMode(CORNERS);
   textAlign(CENTER, CENTER);
@@ -31,16 +31,16 @@ function draw() {
 
 
   fill("#FF0000");
-  text(nfp(rX, 3, 2) + " m/s/s", 0, -vgrid);
+  text(nfp(rX, 3, 2) + " deg.", 0, -vgrid);
   rect(rX * rateX * (rX < 0), -vgrid + tsize - rectH, rX * rateX * (rX > 0), -vgrid + tsize + rectH);
 
   fill("#00FF00");
-  text(nfp(rY, 3, 2) + " m/s/s", 0, 0);
+  text(nfp(rY, 3, 2) + " deg.", 0, 0);
   rect(rY * rateY * (rY < 0), tsize - rectH, rY * rateY * (rY > 0), tsize + rectH);
 
   fill("#0000FF");
-  text(nfp(rZ, 3, 2) + " m/s/s", 0, vgrid);
-  rect(-width / 2, vgrid + tsize - rectH, rZ * rateZ -width / 2, vgrid + tsize + rectH);
+  text(nfp(rZ, 3, 2) + " deg.", 0, vgrid);
+  rect(-width / 2, vgrid + tsize - rectH, rZ * rateZ - width / 2, vgrid + tsize + rectH);
 
   fill(255);
   //text("display density: " + displayDensity(), 0, vgrid * 3 - tsize * 3);
