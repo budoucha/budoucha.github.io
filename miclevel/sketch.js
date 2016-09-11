@@ -12,11 +12,11 @@ function setup() {
   tsize = short / 8;
   transX = width / 2;
   transY = height / 2;
-  
+
   ellipseRate = short;
 
   mic = new p5.AudioIn();
-  mic.enabled=true;
+  mic.enabled = true;
   mic.start();
 }
 
@@ -25,20 +25,37 @@ function draw() {
   background(0);
   push();
   translate(transX, transY);
+
   fill("#FF8888");
-  ellipse(0,vgrid,ellipseSize,ellipseSize);
+  noStroke();
+  ellipse(0, vgrid, ellipseSize, ellipseSize);
+
   fill(255);
   textSize(tsize);
   textAlign(CENTER, CENTER);
-  text("mic level\n"+nf(micLevel, 2, 3), 0, -vgrid*2);
-  textSize(tsize/2);
-  text(nf(frameRate(),2,2)+" fps",0,vgrid*3);
+  text("mic level\n" + nf(micLevel, 0, 3), 0, -vgrid * 2);
+  textSize(tsize / 2);
+  text(nf(frameRate(), 2, 2) + " fps", 0, vgrid * 3);
+
+  noFill();
+  stroke(255, 64);
+  strokeWeight(2);
+  ellipse(0, vgrid, ellipseRate, ellipseRate);
+  ellipse(0, vgrid, ellipseRate/2, ellipseRate/2);
+  ellipse(0,vgrid,ellipseRate/4,ellipseRate/4);
+
+  fill(255,128);
+  noStroke();
+  textSize(tsize/3);
+  text("1.0",ellipseRate/2,vgrid);
+  text("0.5",ellipseRate/4,vgrid);
+  text("0.25",ellipseRate/8,vgrid);
   pop();
 }
 
 function update() {
   micLevel = mic.getLevel();
-  ellipseSize = micLevel*ellipseRate;
+  ellipseSize = micLevel * ellipseRate;
 }
 
 function windowResized() {
