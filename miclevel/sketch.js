@@ -17,8 +17,8 @@
     transX = width / 2;
     transY = height / 2;
 
-    ellPos=vgrid;
-    levelRange = short;
+    ellPos = vgrid;
+    levelRange = short / 2;
     timeDiv = 512;
 
     mic = new p5.AudioIn();
@@ -54,22 +54,23 @@
     fill(255, 128);
     noStroke();
     textSize(tsize / 3);
-    text("1.0", levelRange / 2, ellPos);
-    text("0.5", levelRange / 4, ellPos);
-    text("0.25", levelRange / 8, ellPos);
+    text("1.0", levelRange, ellPos);
+    text("0.5", levelRange / 2, ellPos);
+    text("0.25", levelRange / 4, ellPos);
 
     stroke("#44FF44");
     strokeWeight(2);
     for (i = 0; i < timeDiv; i++) {
-      line(-width / 2 + i * width / timeDiv,  ellPos - levelLog[i], -width / 2 + (i + 1) * width / timeDiv, ellPos - levelLog[i]);
+      line(-width / 2 + i * width / timeDiv, ellPos - levelLog[i], -width / 2 + (i + 1) * width / timeDiv, ellPos - levelLog[i]);
     }
     pop();
     stroke(44, 255, 255, 128);
     strokeWeight(2);
-    line((frameCount % (timeDiv))*width/timeDiv,0,(frameCount % (timeDiv))*width/timeDiv,height);
+    line((frameCount % (timeDiv)) * width / timeDiv, 0, (frameCount % (timeDiv)) * width / timeDiv, height);
   }
 
   function update() {
+    println(mic.amp(1));
     micLevel = mic.getLevel();
     ellSize = micLevel * levelRange;
     levelLog[frameCount % (timeDiv)] = ellSize;
