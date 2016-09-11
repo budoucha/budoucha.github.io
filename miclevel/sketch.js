@@ -18,7 +18,7 @@
     transY = height / 2;
 
     ellPos = vgrid;
-    levelRange = short / 2;
+    levelRange = short / 2.2;
     timeDiv = 512;
 
     mic = new p5.AudioIn();
