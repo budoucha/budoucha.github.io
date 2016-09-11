@@ -24,6 +24,7 @@
     mic = new p5.AudioIn();
     mic.enabled = true;
     mic.start();
+    mic.amp(1);
 
   }
 
@@ -73,7 +74,6 @@
   }
 
   function update() {
-    println(mic.amp(1));
     micLevel = mic.getLevel();
     ellSize = micLevel * levelRange;
     levelLog[frameCount % (timeDiv)] = ellSize;
