@@ -53,15 +53,6 @@ function draw() {
   text("0.25", levelRange / 4, 0);
   pop();
 
-  fill(255);
-  textSize(tsize);
-  textAlign(CENTER, CENTER);
-  text("mic level\n" + nf(micLevel, 0, 3), 0, -vgrid * 2);
-  textSize(tsize / 2);
-  text("mic amp :" + nf(amp, 1, 2), 0, -vgrid);
-  textSize(tsize / 2);
-  text(nf(frameRate(), 2, 2) + " fps", 0, vgrid * 3);
-
   push();
   translate(-transX, ellPos);
   stroke(255, 64);
@@ -77,11 +68,22 @@ function draw() {
     line(i * barLen, -levelLog[i], (i + 1) * barLen, -levelLog[i + 1]);
   }
   pop();
+
+  fill(255);
+  noStroke();
+  textSize(tsize);
+  textAlign(CENTER, CENTER);
+  text("mic level\n" + nf(micLevel, 0, 3), 0, -vgrid * 2);
+  textSize(tsize / 2);
+  text("mic amp :" + nf(amp, 1, 2), 0, -vgrid);
+  textSize(tsize / 2);
+  text(nf(frameRate(), 2, 2) + " fps", 0, vgrid * 3);
   pop();
 
   stroke(44, 255, 255, 128);
   strokeWeight(2);
   line(timeX, 0, timeX, height);
+
 }
 
 function update() {
