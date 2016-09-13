@@ -12,15 +12,16 @@ function setup() {
   hgrid = width / 8;
   vgrid = height / 8;
   tsize = short / 8;
-  transX = width / 2;
-  transY = height / 2;
+  hhalf = width / 2;
+  vhalf = height / 2;
+  bg=255;
 }
 
 function draw() {
   update();
-  background(255);
+  background(bg);
   push();
-  translate(transX, transY);
+  translate(hhalf, vhalf);
   fill(0);
   textSize(tsize);
   textAlign(CENTER, CENTER);
@@ -28,7 +29,22 @@ function draw() {
   pop();
 }
 
-function update() {}
+function update() {
+
+}
+
+function mouseDragged() {
+  //drag event here
+  dragged = true;
+}
+
+function mouseReleased() {
+  if (dragged == false) {
+    //click event here
+  } else {
+    dragged = false;
+  }
+}
 
 function windowResized() {
   setup();
