@@ -47,7 +47,7 @@ function draw() {
   fill(255, 128);
   noStroke();
   textSize(tsize / 3);
-  textAlign(CENTER,TOP);
+  textAlign(CENTER, TOP);
   text("1.0", levelRange, 0);
   text("0.5", levelRange / 2, 0);
   text("0.25", levelRange / 4, 0);
@@ -56,9 +56,11 @@ function draw() {
   //level line
   push();
   translate(0, ellPos);
-  stroke("#44FF44");
   strokeWeight(1);
   for (i = 0; i < timeDiv; i++) {
+    i_ = i + timeDiv - tStep - ((i > tStep) * timeDiv);
+    lineAlpha = 48 + 1.6 * 255 * i_ / timeDiv;
+    stroke(64, 255, 64, lineAlpha);
     line(i * barLen, -levelLog[i], (i + 1) * barLen, -levelLog[i + 1]);
   }
 
@@ -94,8 +96,9 @@ function update() {
   mic.amp(amp);
   micLevel = mic.getLevel();
   ellSize = micLevel * levelRange;
-  levelLog[frameCount % (timeDiv)] = ellSize;
-  timeX = (frameCount % (timeDiv)) * barLen;
+  tStep = frameCount % timeDiv;
+  levelLog[tStep] = ellSize;
+  timeX = tStep * barLen;
 }
 
 function windowResized() {
