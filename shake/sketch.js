@@ -12,7 +12,7 @@ function setup() {
   hgrid = width / 8;
   vgrid = height / 8;
   tsize = short / 8;
-  setShakeThreshold(notShaked * 1.8);
+  setShakeThreshold(notShaked * 1.6);
   shakeEnabled = 0;
 }
 
@@ -23,6 +23,7 @@ function draw() {
   fill(255);
   textSize(tsize);
   textAlign(CENTER, CENTER);
+  text("Shake count",0,-vgrid);
   text(shakeCount, 0, 0);
   pop();
   update();
@@ -45,4 +46,9 @@ function deviceShaken() {
     shakeCount++;
   }
   shakeEnabled = 1;
+}
+
+
+function mouseClicked(){
+  shakeCount = 0;
 }
