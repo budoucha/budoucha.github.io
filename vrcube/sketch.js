@@ -44,13 +44,12 @@ function draw() {
 
 
 function update(){
-  rotX=0;ｑ
+  rotX=0;
   rotY=0;
   rotZ=0;
   rotZ = radians(rotationZ) * (-1*(abs(rotationX)<=90) + (abs(rotationX)>90));
   rotX = cos(rotZ) * radians(-rotationX) + sin(rotZ) * radians(-rotationY);
   rotY = sin(radians(rotationZ)) * radians(-rotationX) + cos(radians(rotationZ)) * radians(rotationY)
-  
   println(rotZ);
 }
 
