@@ -1,7 +1,7 @@
 function preload() {
   imageMode(CENTER);
   ellipseMode(RADIUS);
-  //button = loadImage(".png");
+  mainbarImg = loadImage("assets/mainbar.png");
   pixelDensity(1);
 }
 
@@ -14,7 +14,16 @@ function setup() {
   tsize = short / 8;
   hhalf = width / 2;
   vhalf = height / 2;
-  bg=255;
+  bg = 255;
+
+
+  //mainbar = createSprite(width / 2, height / 2);
+  //mainbar.maxSpeed = 6;
+  //mainbar.friction = .98;
+  //mainbar.setCollider("circle", 0, 0, 20);
+
+  //mainbar.addImage("normal", mainbarImg);
+  //mainbar.addAnimation("thrust", "assets/asteroids_ship0002.png", "assets/asteroids_ship0007.png");
 }
 
 function draw() {
@@ -27,6 +36,8 @@ function draw() {
   textAlign(CENTER, CENTER);
   text("hoge", 0, 0);
   pop();
+
+  drawSprites();
 }
 
 function update() {
