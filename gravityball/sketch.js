@@ -7,6 +7,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  dragged=false;
   short = min(width, height);
   long = max(width, height);
   hgrid = width / 8;
@@ -39,6 +40,12 @@ function draw() {
 
   noStroke();
   fill(bg,4);
+
+  strokeWeight(hgrid/3);
+  stroke(255);
+  line(pX, pY, X, Y);
+
+  noStroke();
   rect(-hhalf,-vgrid*3,hhalf*2,vgrid*6);
   fill(216);
   rect(-hhalf, -vhalf, hhalf * 2, vgrid);
@@ -51,15 +58,11 @@ function draw() {
   //  text(nfp(rX, 3, 2), -hgrid, vgrid * 3.75);
   //  text(nfp(rY, 3, 2), hgrid, vgrid * 3.75);
 
-  strokeWeight(hgrid/6);
-  stroke(255);
-  line(pX, pY, X, Y);
-
   pop();
 }
 
 function update() {
-  rX = radians(rotationY);
+  rX = pow(-1,(abs(rotationX)>90)) * radians(rotationY);
   rY = radians(rotationX);
   f = frameRate()
 
@@ -94,7 +97,7 @@ function update() {
   }
 }
 
-function mouseDragged() {
+/*function mouseDragged() {
   //drag event here
   dragged = true;
 }
@@ -105,7 +108,7 @@ function mouseReleased() {
   } else {
     dragged = false;
   }
-}
+}*/
 
 function windowResized() {
   setup();
