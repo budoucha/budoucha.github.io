@@ -14,7 +14,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 800);
+  var myCanvas = createCanvas(600, 800);
+  myCanvas.parent('sketch-holder');
   hgrid = width / 8;
   vgrid = height / 8;
   hhalf = width / 2;
@@ -36,7 +37,7 @@ function setup() {
   jiki.addImage(jikiImg);
   jikiHead = jiki.height * 0.19;
   jiki.setCollider("circle", 0, -8, jikiHead);
-  maxLife=16;
+  maxLife = 16;
   jikiLife = maxLife;
 
   jimiImg.resize(hgrid * 1.44, hgrid * 1.44);
@@ -75,17 +76,17 @@ function draw() {
 
     ellipseMode(CENTER);
     strokeWeight(2);
-    blink = 156 + 128 * sin(12 * radians(frameCount % 360));
+    blink = 156 + 100 * sin(24 * radians(frameCount % 360));
     stroke(blink);
     colorMode(HSB);
-    fill(24, 216, blink);
+    fill(16, 216, blink);
     ellipse(jiki.position.x, jiki.position.y - jikiHead, 15);
 
     rectMode(CORNER);
     noStroke();
-    if (jikiLife > maxLife/2) {
+    if (jikiLife > maxLife / 2) {
       fill('#00FF00');
-    } else if (jikiLife > maxLife/4) {
+    } else if (jikiLife > maxLife / 4) {
       fill('#FFFF00');
     } else {
       fill('#FF0000');
@@ -227,7 +228,7 @@ function jimiShoot(type) {
   } else if (type == 1) {
     jimiBulletSpeed = 4;
     for (i = -1; i < 2; i += 2) {
-      jimiBulletAngle = HALF_PI - i * 0.12 - atan2(jiki.position.x - jimi.position.x, jiki.position.y - jimi.position.y);
+      jimiBulletAngle = HALF_PI - i * 0.12 - atan2(jiki.position.x - jimi.position.x, jiki.position.y - jikiHead - jimi.position.y-64);
       jimiBullet = createSprite(jimi.position.x, jimi.position.y + 64, 4, 4);
       jimiBullet.addImage(wikiLogoM);
       jimiBullet.life = 192;
@@ -239,7 +240,7 @@ function jimiShoot(type) {
   } else if (type == 2) {
     jimiBulletSpeed = 10;
     for (i = 0; i < 3; i++) {
-      jimiBulletAngle = HALF_PI - atan2(jiki.position.x - jimi.position.x, jiki.position.y - jimi.position.y - 64);
+      jimiBulletAngle = HALF_PI - atan2(jiki.position.x - jimi.position.x, jiki.position.y - jikiHead - jimi.position.y  - 64);
       jimiBullet = createSprite(jimi.position.x + i * 4 * jimiBulletSpeed * cos(jimiBulletAngle), jimi.position.y + i * 4 * jimiBulletSpeed * sin(jimiBulletAngle) + 64, 4, 4);
       jimiBullet.addImage(wikiLogoS);
       jimiBullet.life = 80;
@@ -258,7 +259,7 @@ function jimiHit(jimiBullet, jiki) {
 }
 
 function directHit(jimi, jiki) {
-  jikiLife-=2;
+  jikiLife -= 2;
   print(jikiLife);
 }
 
