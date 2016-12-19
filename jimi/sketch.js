@@ -36,7 +36,8 @@ function setup() {
   jiki.addImage(jikiImg);
   jikiHead = jiki.height * 0.19;
   jiki.setCollider("circle", 0, -8, jikiHead);
-  jikiLife = 128;
+  maxLife=16;
+  jikiLife = maxLife;
 
   jimiImg.resize(hgrid * 1.44, hgrid * 1.44);
   jimi = createSprite(hhalf, vgrid, hgrid, hgrid);
@@ -82,14 +83,14 @@ function draw() {
 
     rectMode(CORNER);
     noStroke();
-    if (jikiLife > 64) {
+    if (jikiLife > maxLife/2) {
       fill('#00FF00');
-    } else if (jikiLife > 32) {
+    } else if (jikiLife > maxLife/4) {
       fill('#FFFF00');
     } else {
       fill('#FF0000');
     }
-    rect(jiki.position.x - 28, jiki.position.y + jiki.height * 0.55, map(jikiLife, 0, 128, 0, 56), 6);
+    rect(jiki.position.x - 28, jiki.position.y + jiki.height * 0.55, map(jikiLife, 0, maxLife, 0, 56), 6);
     strokeWeight(1);
     stroke(36);
     noFill();
@@ -108,8 +109,8 @@ function draw() {
     strokeWeight(3);
     stroke(255);
     fill(0);
-    text("move: ARROW KEY\nshot: [Z]\nslow mode: [SHIFT]\n\n\npress [Z] to start", hhalf, vgrid * 5);
-    if (keyDown("Z")) {
+    text("move: ARROW KEY\nshot: [Z]\nslow mode: [SHIFT]\n\n\npress [X] to start", hhalf, vgrid * 5);
+    if (keyDown("X")) {
       mode = 1;
     }
   } else if (mode == 2) {
@@ -123,8 +124,8 @@ function draw() {
     textSize(36);
     strokeWeight(3);
     text("SCORE:\n￥" + score, hhalf, vgrid * 3);
-    text("press [Z] to restart\n\npress [D] to\ndonate Wikipedia\n(jump to wikimedia.org) ", hhalf, vgrid * 5);
-    if (keyDown("Z")) {
+    text("press [X] to restart\n\npress [D] to\ndonate Wikipedia\n(jump to wikimedia.org) ", hhalf, vgrid * 5);
+    if (keyDown("X")) {
       setup();
     }
     if (keyDown("D")) {
