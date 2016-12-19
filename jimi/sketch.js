@@ -255,12 +255,10 @@ function jimiShoot(type) {
 function jimiHit(jimiBullet, jiki) {
   jimiBullet.remove();
   jikiLife--;
-  print(jikiLife);
 }
 
 function directHit(jimi, jiki) {
   jikiLife -= 2;
-  print(jikiLife);
 }
 
 
