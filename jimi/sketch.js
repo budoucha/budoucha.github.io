@@ -125,7 +125,7 @@ function draw() {
     textSize(36);
     strokeWeight(3);
     text("SCORE:\n￥" + score, hhalf, vgrid * 3);
-    text("press [X] to restart\n\npress [D] to\ndonate Wikipedia\n(jump to wikimedia.org) ", hhalf, vgrid * 5);
+    text("restart game: [X] \n\ndonate to Wikipedia\n( jump to wikimedia.org ): [D]  ", hhalf, vgrid * 5);
     if (keyDown("X")) {
       setup();
     }
