@@ -41,7 +41,7 @@ function setup() {
   jiki = createSprite(hhalf, vgrid * 7, hgrid, hgrid);
   jiki.addImage(jikiImg);
   jikiHead = jiki.height * 0.19;
-  jiki.setCollider("circle", 0, -8, jikiHead);
+  jiki.setCollider("circle", 0, -jikiHead, 4);
   maxLife = 16;
   jikiLife = maxLife;
 
@@ -88,12 +88,12 @@ function draw() {
     drawSprites();
 
     ellipseMode(CENTER);
-    strokeWeight(2);
+    strokeWeight(1);
     blink = 156 + 100 * sin(24 * radians(frameCnt % 360));
     stroke(blink);
     colorMode(HSB);
     fill(16, 216, blink);
-    ellipse(jiki.position.x, jiki.position.y - jikiHead, 15);
+    ellipse(jiki.position.x, jiki.position.y - jikiHead, 9);
 
     rectMode(CORNER);
     noStroke();
@@ -113,9 +113,9 @@ function draw() {
     //test
     if (jimiDmg > 0) {
       noStroke();
-      fill(200, 255, 255, 0.12*jimiDmg);
+      fill(200, 255, 255, 0.09 * jimiDmg);
       rectMode(CENTER);
-      rect(jimi.position.x, jimi.position.y, jimi.width, jimi.height);
+      rect(jimi.position.x, jimi.position.y, jimi.width * (1 + 0.08 * jimiDmg), jimi.height * (1 + 0.08 * jimiDmg));
       jimiDmg--;
     }
 
@@ -220,7 +220,7 @@ function shoot() {
 
 function myHit(jimi, myBullet) {
   score++;
-  jimiDmg=3;
+  jimiDmg = 4;
   myBullet.remove();
 }
 
@@ -249,7 +249,7 @@ function jimiShoot(type) {
     jimiBullet.velocity.x = jimiBulletSpeed * cos(jimiBulletAngle);
     jimiBullet.velocity.y = jimiBulletSpeed * sin(jimiBulletAngle);
     jimiBullets.add(jimiBullet);
-    jimiBullet.setCollider("circle", 0, 0, jimiBullet.width / 2);
+    jimiBullet.setCollider("circle", 0, 0, jimiBullet.width / 2.1);
   } else if (type == 1) {
     jimiBulletSpeed = 4;
     for (i = -1; i < 2; i += 2) {
@@ -260,7 +260,7 @@ function jimiShoot(type) {
       jimiBullet.velocity.x = jimiBulletSpeed * cos(jimiBulletAngle);
       jimiBullet.velocity.y = jimiBulletSpeed * sin(jimiBulletAngle);
       jimiBullets.add(jimiBullet);
-      jimiBullet.setCollider("circle", 0, 0, jimiBullet.width / 2);
+      jimiBullet.setCollider("circle", 0, 0, jimiBullet.width / 2.1);
     }
   } else if (type == 2) {
     jimiBulletSpeed = 10;
@@ -272,7 +272,7 @@ function jimiShoot(type) {
       jimiBullet.velocity.x = pow(1.11, i) * jimiBulletSpeed * cos(jimiBulletAngle);
       jimiBullet.velocity.y = pow(1.11, i) * jimiBulletSpeed * sin(jimiBulletAngle);
       jimiBullets.add(jimiBullet);
-      jimiBullet.setCollider("circle", 0, 0, jimiBullet.width / 2);
+      jimiBullet.setCollider("circle", 0, 0, jimiBullet.width / 2.1);
     }
   }
 }
