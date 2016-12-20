@@ -5,15 +5,20 @@ function preload() {
   jimiImg = loadImage("data/jimi.jpg");
   jikiImg = loadImage("data/jiki.png");
   bulletImg = loadImage("data/bullet.png");
-  bgImgLong = loadImage("data/bglong.jpg");
-  bgImgShort = loadImage("data/bg.jpg");
+  bg1 = loadImage("data/bg1st.jpg");
+  bg2 = loadImage("data/bg2nd.jpg");
   aImg = loadImage("data/a.png");
   wikiLogoL = loadImage("data/wiki-Logo.png");
   wikiLogoM = loadImage("data/wiki-Logo.png");
   wikiLogoS = loadImage("data/wiki-Logo.png");
+  mode = 0;
 }
 
 function setup() {
+  n = allSprites.length;
+  for (i = 0; i < n; i++) {
+    allSprites[0].remove();
+  }
   var myCanvas = createCanvas(600, 800);
   myCanvas.parent('sketch-holder');
   hgrid = width / 8;
@@ -49,24 +54,31 @@ function setup() {
   wikiLogoM.resize(hgrid * 0.8, hgrid * 0.8);
   wikiLogoS.resize(hgrid * 0.4, hgrid * 0.4);
 
+  bgHeight = bg1.height + bg2.height;
+
   score = 0;
   shtcntdwn = 0;
-  mode = 0;
-
+  pan = 0;
+  frameCnt = 0;
   url1 = "https://payments.wikimedia.org/index.php?title=Special:GlobalCollectGateway&language=ja&country=JP&currency_code=JPY&frequency=onetime&amount=Other&amountGiven=";
   id = "input_amount_other_box"
 }
 
 function draw() {
+  frameCnt++;
   if (mode == 1) {
     update();
     background(216);
-    scroll = 0 - frameCount % bgImgLong.height + bgImgLong.height;
-    if (scroll > 0) {
-      image(bgImgLong, 0, scroll - bgImgLong.height, width, bgImgLong.height);
+    imageMode(CORNER);
+    pan = 0 - 2* frameCnt % bgHeight;
+    if (pan < bg1.height) {
+      image(bg1, 0, pan, width, bg1.height);
     }
-    if (scroll < height) {
-      image(bgImgShort, 0, scroll, width, bgImgShort.height);
+    if (pan + bg1.height < height) {
+      image(bg2, 0, pan + bg1.height, width, bg2.height);
+    }
+    if (pan + bgHeight < height) {
+      image(bg1, 0, bgHeight + pan, width, bg1.height);
     }
 
     fill(0);
@@ -76,7 +88,7 @@ function draw() {
 
     ellipseMode(CENTER);
     strokeWeight(2);
-    blink = 156 + 100 * sin(24 * radians(frameCount % 360));
+    blink = 156 + 100 * sin(24 * radians(frameCnt % 360));
     stroke(blink);
     colorMode(HSB);
     fill(16, 216, blink);
@@ -113,6 +125,7 @@ function draw() {
     text("move: ARROW KEY\nshot: [Z]\nslow mode: [SHIFT]\n\n\npress [X] to start", hhalf, vgrid * 5);
     if (keyDown("X")) {
       mode = 1;
+      setup();
     }
   } else if (mode == 2) {
     background(0);
@@ -127,6 +140,7 @@ function draw() {
     text("SCORE:\n￥" + score, hhalf, vgrid * 3);
     text("restart game: [X] \n\ndonate to Wikipedia\n( jump to wikimedia.org ): [D]  ", hhalf, vgrid * 5);
     if (keyDown("X")) {
+      mode = 0;
       setup();
     }
     if (keyDown("D")) {
@@ -201,14 +215,14 @@ function myHit(jimi, myBullet) {
 
 
 function jimiMove() {
-  jimi.position.x = hhalf + width / 3 * sin(frameCount / 108);
-  if (frameCount % 90 === 0) {
+  jimi.position.x = hhalf + width / 3 * sin(frameCnt / 108);
+  if (frameCnt % 90 === 0) {
     jimiShoot(0);
   }
-  if (frameCount % 53 === 0) {
+  if (frameCnt % 53 === 0) {
     jimiShoot(1);
   }
-  if (frameCount % 67 === 0) {
+  if (frameCnt % 67 === 0) {
     jimiShoot(2);
 
   }
@@ -228,7 +242,7 @@ function jimiShoot(type) {
   } else if (type == 1) {
     jimiBulletSpeed = 4;
     for (i = -1; i < 2; i += 2) {
-      jimiBulletAngle = HALF_PI - i * 0.12 - atan2(jiki.position.x - jimi.position.x, jiki.position.y - jikiHead - jimi.position.y-64);
+      jimiBulletAngle = HALF_PI - i * 0.12 - atan2(jiki.position.x - jimi.position.x, jiki.position.y - jikiHead - jimi.position.y - 64);
       jimiBullet = createSprite(jimi.position.x, jimi.position.y + 64, 4, 4);
       jimiBullet.addImage(wikiLogoM);
       jimiBullet.life = 192;
@@ -240,7 +254,7 @@ function jimiShoot(type) {
   } else if (type == 2) {
     jimiBulletSpeed = 10;
     for (i = 0; i < 3; i++) {
-      jimiBulletAngle = HALF_PI - atan2(jiki.position.x - jimi.position.x, jiki.position.y - jikiHead - jimi.position.y  - 64);
+      jimiBulletAngle = HALF_PI - atan2(jiki.position.x - jimi.position.x, jiki.position.y - jikiHead - jimi.position.y - 64);
       jimiBullet = createSprite(jimi.position.x + i * 4 * jimiBulletSpeed * cos(jimiBulletAngle), jimi.position.y + i * 4 * jimiBulletSpeed * sin(jimiBulletAngle) + 64, 4, 4);
       jimiBullet.addImage(wikiLogoS);
       jimiBullet.life = 80;
@@ -263,11 +277,11 @@ function directHit(jimi, jiki) {
 
 
 function gameOver() {
-  jimi.remove();
-  jiki.remove()
+  //jimi.remove();
+  //jiki.remove();
   mode = 2;
   //document.getElementById("twitter-widget-0").src = document.getElementById("twitter-widget-0").src +"&text="+score+"%E5%86%86%E5%88%86%E5%A5%AE%E9%97%98%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%20%20KIFU%20GAME%20-Wikipedia%E3%81%A8%E3%82%B8%E3%83%9F%E3%83%BC%E3%83%BB%E3%82%A6%E3%82%A7%E3%83%BC%E3%83%AB%E3%82%BA%E6%B0%8F%E3%81%AB%E5%AF%84%E4%BB%98%E3%81%99%E3%82%8B%E3%82%B2%E3%83%BC%E3%83%A0-";
-  }
+}
 
 function drawTexts() {
   textSize(24);
