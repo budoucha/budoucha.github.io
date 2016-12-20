@@ -55,6 +55,10 @@ function setup() {
   wikiLogoM.resize(hgrid * 0.8, hgrid * 0.8);
   wikiLogoS.resize(hgrid * 0.4, hgrid * 0.4);
 
+  bg1Scale = width / bg1.width;
+  bg2Scale = width / bg2.width;
+  bg1.resize(width, bg1Scale * bg1.height);
+  bg2.resize(width, bg2Scale * bg2.height);
   bgHeight = bg1.height + bg2.height;
 
   score = 0;
@@ -89,12 +93,13 @@ function draw() {
 
     ellipseMode(CENTER);
     strokeWeight(1);
-    blink = 156 + 100 * sin(24 * radians(frameCnt % 360));
+    blink = 100 + 156 * sin(16 * radians(frameCnt % 360));
     stroke(blink);
     colorMode(HSB);
     fill(16, 216, blink);
     ellipse(jiki.position.x, jiki.position.y - jikiHead, 9);
 
+    // Life Gauge
     rectMode(CORNER);
     noStroke();
     if (jikiLife > maxLife / 2) {
@@ -104,13 +109,13 @@ function draw() {
     } else {
       fill('#FF0000');
     }
-    rect(jiki.position.x - 28, jiki.position.y + jiki.height * 0.55, map(jikiLife, 0, maxLife, 0, 56), 6);
+    rect(jiki.position.x - 24, jiki.position.y + jiki.height * 0.15, map(jikiLife, 0, maxLife, 0, 48), 6);
     strokeWeight(1);
     stroke(36);
     noFill();
-    rect(jiki.position.x - 28, jiki.position.y + jiki.height * 0.55, 56, 6);
+    rect(jiki.position.x - 24, jiki.position.y + jiki.height * 0.15, 48, 6);
 
-    //test
+    // Damage Effect
     if (jimiDmg > 0) {
       noStroke();
       fill(200, 255, 255, 0.09 * jimiDmg);
