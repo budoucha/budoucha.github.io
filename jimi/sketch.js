@@ -49,6 +49,7 @@ function setup() {
   jimi = createSprite(hhalf, vgrid, hgrid, hgrid);
   jimi.addImage(jimiImg);
   jimi.setCollider("rectangle", 0, 0, jimi.width, jimi.height * 0.6);
+  jimiDmg = 0;
 
   wikiLogoL.resize(hgrid * 2, hgrid * 2);
   wikiLogoM.resize(hgrid * 0.8, hgrid * 0.8);
@@ -70,7 +71,7 @@ function draw() {
     update();
     background(216);
     imageMode(CORNER);
-    pan = 0 - 2* frameCnt % bgHeight;
+    pan = 0 - 2 * frameCnt % bgHeight;
     if (pan < bg1.height) {
       image(bg1, 0, pan, width, bg1.height);
     }
@@ -108,6 +109,15 @@ function draw() {
     stroke(36);
     noFill();
     rect(jiki.position.x - 28, jiki.position.y + jiki.height * 0.55, 56, 6);
+
+    //test
+    if (jimiDmg > 0) {
+      noStroke();
+      fill(200, 255, 255, 0.12*jimiDmg);
+      rectMode(CENTER);
+      rect(jimi.position.x, jimi.position.y, jimi.width, jimi.height);
+      jimiDmg--;
+    }
 
 
     drawTexts();
@@ -204,12 +214,13 @@ function shoot() {
     myBullets.add(myBullet);
     myBullet.setCollider("rectangle");
 
-    shtcntdwn = 4; //再装填時間
+    shtcntdwn = 3; //再装填時間
   }
 }
 
 function myHit(jimi, myBullet) {
   score++;
+  jimiDmg=3;
   myBullet.remove();
 }
 
