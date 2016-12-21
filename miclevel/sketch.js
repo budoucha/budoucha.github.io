@@ -24,13 +24,52 @@ function setup() {
   mic.enabled = true;
   mic.start();
   amp = 1.0;
+
+  //* debug mode
+  frameRate(2);
+  timeDiv = 8;
+  barLen = width / timeDiv;//*/
 }
 
 function draw() {
   update();
   background(bg);
 
-  //level circle
+  baseLines();
+
+  //level line
+  push();
+  translate(0, ellPos);
+  strokeWeight(1);
+  for (i = 1; i <= timeDiv+1; i++) {
+    i_ = i + timeDiv - tStep - ((i > tStep) * timeDiv); // ringed i
+    lineAlpha = 16 + 1.44 * i_ *255/timeDiv;
+    stroke(64, 255, 64, lineAlpha);
+    line((i-1) * barLen, -levelLog[i-1], (i) * barLen, -levelLog[i]);
+  }
+  pop();
+
+  //time front
+  stroke(44, 255, 255, 128);
+  strokeWeight(2);
+  line(timeX, 0, timeX, height);
+
+  drawTexts();
+}
+
+
+function update() {
+  mic.amp(amp);
+  micLevel = mic.getLevel();
+  ellSize = micLevel * levelRange;
+  tStep = (frameCount-1) % (timeDiv);
+  levelLog[tStep] = ellSize;
+  timeX = tStep * barLen;
+  if(tStep === 0 ){levelLog[timeDiv]=ellSize;}
+}
+
+
+function baseLines() {
   push();
   translate(hhalf, ellPos);
   fill("#FF4444");
@@ -52,18 +91,9 @@ function draw() {
   text("0.5", levelRange / 2, 0);
   text("0.25", levelRange / 4, 0);
   pop();
-
-  //level line
+  
   push();
   translate(0, ellPos);
-  strokeWeight(1);
-  for (i = 0; i < timeDiv; i++) {
-    i_ = i + timeDiv - tStep - ((i > tStep) * timeDiv);
-    lineAlpha = 48 + 1.6 * 255 * i_ / timeDiv;
-    stroke(64, 255, 64, lineAlpha);
-    line(i * barLen, -levelLog[i], (i + 1) * barLen, -levelLog[i + 1]);
-  }
-
   stroke(255, 64);
   strokeWeight(2);
   line(0, -levelRange, width, -levelRange);
@@ -71,13 +101,9 @@ function draw() {
   line(0, -levelRange / 4, width, -levelRange / 4);
   line(0, 0, width, 0);
   pop();
+}
 
-  //time bar
-  stroke(44, 255, 255, 128);
-  strokeWeight(2);
-  line(timeX, 0, timeX, height);
-
-  //texts
+function drawTexts() {
   push();
   translate(hhalf, vhalf);
   fill(255);
@@ -92,15 +118,8 @@ function draw() {
   pop();
 }
 
-function update() {
-  mic.amp(amp);
-  micLevel = mic.getLevel();
-  ellSize = micLevel * levelRange;
-  tStep = frameCount % timeDiv;
-  levelLog[tStep] = ellSize;
-  timeX = tStep * barLen;
-}
 
+// itsumono
 function windowResized() {
   setup();
 }
@@ -111,9 +130,8 @@ function mouseDragged() {
   dragged = true;
 }
 
-
 function mouseReleased() {
-  if (dragged == false) {
+  if (dragged === false) {
     amp = 1;
     bg = 0;
   } else {
