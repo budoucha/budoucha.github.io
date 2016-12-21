@@ -24,6 +24,7 @@ function setup() {
   hgrid = width / 8;
   vgrid = height / 8;
   hhalf = width / 2;
+  vhalf = height / 2;
 
   titleScale = width * 0.78 / title.width;
   title.resize(title.width * titleScale, title.height * titleScale);
@@ -36,6 +37,7 @@ function setup() {
 
   myBullets = new Group();
   jimiBullets = new Group();
+  vanishAreas = new Group();
 
   jikiImg.resize(hgrid * 0.8, hgrid * 0.8);
   jiki = createSprite(hhalf, vgrid * 7, hgrid, hgrid);
@@ -43,6 +45,7 @@ function setup() {
   jikiHead = jiki.height * 0.19;
   jiki.setCollider("circle", 0, -jikiHead, 4);
   maxLife = 16;
+  jikiDmg = 0;
   jikiLife = maxLife;
 
   jimiImg.resize(hgrid * 1.44, hgrid * 1.44);
@@ -51,7 +54,7 @@ function setup() {
   jimi.setCollider("rectangle", 0, 0, jimi.width, jimi.height * 0.6);
   jimiDmg = 0;
 
-  wikiLogoL.resize(hgrid * 2, hgrid * 2);
+  wikiLogoL.resize(hgrid * 1.8, hgrid * 1.8);
   wikiLogoM.resize(hgrid * 0.8, hgrid * 0.8);
   wikiLogoS.resize(hgrid * 0.4, hgrid * 0.4);
 
@@ -60,6 +63,11 @@ function setup() {
   bg1.resize(width, bg1Scale * bg1.height);
   bg2.resize(width, bg2Scale * bg2.height);
   bgHeight = bg1.height + bg2.height;
+
+  vanishAreaL = createSprite(-hgrid * 1.8, vhalf, 10, height);
+  vanishAreas.add(vanishAreaL);
+  vanishAreaR = createSprite(width + hgrid * 1.8, vhalf, 10, height);
+  vanishAreas.add(vanishAreaR);
 
   score = 0;
   shtcntdwn = 0;
@@ -70,6 +78,7 @@ function setup() {
 }
 
 function draw() {
+  //print(allSprites.length);
   frameCnt++;
   if (mode == 1) {
     update();
@@ -124,6 +133,18 @@ function draw() {
       jimiDmg--;
     }
 
+    if (jikiDmg > 0) {
+      noStroke();
+      fill(0, 255, 255, 0.1 * jikiDmg);
+      ellipseMode(CENTER);
+      ellipse(jiki.position.x + randomGaussian(0, 10), jiki.position.y + randomGaussian(0, 10), jiki.width * (0.6 + 0.08 * jimiDmg), jiki.height * (0.6 + 0.08 * jimiDmg));
+      jikiDmg--;
+
+    }
+
+    noStroke();
+    fill(0, 255, 255, 0.4);
+    triangle(jimi.position.x, height - 15, jimi.position.x - 15, height, jimi.position.x + 15, height);
 
     drawTexts();
   } else if (mode === 0) {
@@ -169,9 +190,12 @@ function update() {
   if (jikiLife < 1) {
     gameOver();
   }
+
   jimi.overlap(myBullets, myHit);
   jimiBullets.overlap(jiki, jimiHit);
   jimi.overlap(jiki, directHit);
+  jimiBullets.overlap(vanishAreas, vanish);
+
   jimiMove();
   readKey();
 
@@ -223,31 +247,23 @@ function shoot() {
   }
 }
 
-function myHit(jimi, myBullet) {
-  score++;
-  jimiDmg = 4;
-  myBullet.remove();
-}
-
-
 function jimiMove() {
   jimi.position.x = hhalf + width / 3 * sin(frameCnt / 108);
-  if (frameCnt % 90 === 0) {
+  if (frameCnt % 53 === 0) {
     jimiShoot(0);
   }
-  if (frameCnt % 53 === 0) {
+  if (frameCnt % 57 === 0) {
     jimiShoot(1);
   }
   if (frameCnt % 67 === 0) {
     jimiShoot(2);
-
   }
 }
 
 function jimiShoot(type) {
   if (type === 0) {
     jimiBulletSpeed = 1.8;
-    jimiBulletAngle = randomGaussian(HALF_PI, 0.5);
+    jimiBulletAngle = randomGaussian(HALF_PI, 1);
     jimiBullet = createSprite(jimi.position.x, jimi.position.y + 64, 4, 4);
     jimiBullet.addImage(wikiLogoL);
     jimiBullet.life = 440;
@@ -283,14 +299,24 @@ function jimiShoot(type) {
 }
 
 function jimiHit(jimiBullet, jiki) {
+  jikiDmg = 5;
   jimiBullet.remove();
   jikiLife--;
 }
 
-function directHit(jimi, jiki) {
+function directHit() {
   jikiLife -= 2;
 }
 
+function myHit(jimi, myBullet) {
+  score++;
+  jimiDmg = 3;
+  myBullet.remove();
+}
+
+function vanish(vanishing) {
+  vanishing.remove();
+}
 
 function gameOver() {
   //jimi.remove();
