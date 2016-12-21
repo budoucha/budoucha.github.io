@@ -32,7 +32,7 @@ function setup() {
   subtitle.resize(subtitle.width * subtitleScale, subtitle.height * subtitleScale);
 
   jikiSpeedDefault = 6;
-  jikiSpeedSlow = 3;
+  jikiSpeedSlow = 2;
   jikiSpeed = jikiSpeedDefault;
 
   myBullets = new Group();
@@ -44,7 +44,7 @@ function setup() {
   jiki.addImage(jikiImg);
   jikiHead = jiki.height * 0.19;
   jiki.setCollider("circle", 0, -jikiHead, 8);
-  maxLife = 32;
+  maxLife = 48;
   jikiDmg = 0;
   jikiLife = maxLife;
 
@@ -248,10 +248,10 @@ function shoot() {
 
 function jimiMove() {
   jimi.position.x = hhalf + width / 3 * sin(frameCnt / 108);
-  if (frameCnt % 53 === 0) {
+  if (frameCnt % 47 === 0) {
     jimiShoot(0);
   }
-  if (frameCnt % 57 === 0) {
+  if (frameCnt % 53 === 0) {
     jimiShoot(1);
   }
   if (frameCnt % 67 === 0) {
@@ -298,7 +298,7 @@ function jimiShoot(type) {
 }
 
 function jimiHit(jimiBullet, jiki) {
-  jikiDmg = 20;
+  jikiDmg = 25;
   jimiBullet.remove();
   jikiLife--;
 }
