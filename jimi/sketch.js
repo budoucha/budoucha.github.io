@@ -43,8 +43,8 @@ function setup() {
   jiki = createSprite(hhalf, vgrid * 7, hgrid, hgrid);
   jiki.addImage(jikiImg);
   jikiHead = jiki.height * 0.19;
-  jiki.setCollider("circle", 0, -jikiHead, 4);
-  maxLife = 16;
+  jiki.setCollider("circle", 0, -jikiHead, 8);
+  maxLife = 32;
   jikiDmg = 0;
   jikiLife = maxLife;
 
@@ -102,10 +102,9 @@ function draw() {
 
     ellipseMode(CENTER);
     strokeWeight(1);
-    blink = 100 + 156 * sin(16 * radians(frameCnt % 360));
-    stroke(blink);
+    stroke(255);
     colorMode(HSB);
-    fill(16, 216, blink);
+    fill(0, 216, 255);
     ellipse(jiki.position.x, jiki.position.y - jikiHead, 9);
 
     // Life Gauge
@@ -135,9 +134,9 @@ function draw() {
 
     if (jikiDmg > 0) {
       noStroke();
-      fill(0, 255, 255, 0.1 * jikiDmg);
+      fill(20, 255, 255, 0.6);
       ellipseMode(CENTER);
-      ellipse(jiki.position.x + randomGaussian(0, 10), jiki.position.y + randomGaussian(0, 10), jiki.width * (0.6 + 0.08 * jimiDmg), jiki.height * (0.6 + 0.08 * jimiDmg));
+      ellipse(jiki.position.x + randomGaussian(0, 10), jiki.position.y + randomGaussian(0, 10), jiki.width * (0.5 + 0.07 * jimiDmg));
       jikiDmg--;
 
     }
@@ -263,7 +262,7 @@ function jimiMove() {
 function jimiShoot(type) {
   if (type === 0) {
     jimiBulletSpeed = 1.8;
-    jimiBulletAngle = randomGaussian(HALF_PI, 1);
+    jimiBulletAngle = randomGaussian(HALF_PI, 0.8);
     jimiBullet = createSprite(jimi.position.x, jimi.position.y + 64, 4, 4);
     jimiBullet.addImage(wikiLogoL);
     jimiBullet.life = 440;
@@ -299,7 +298,7 @@ function jimiShoot(type) {
 }
 
 function jimiHit(jimiBullet, jiki) {
-  jikiDmg = 5;
+  jikiDmg = 20;
   jimiBullet.remove();
   jikiLife--;
 }
