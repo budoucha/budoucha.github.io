@@ -25,7 +25,7 @@ function setup() {
   mic.start();
   amp = 1.0;
 
-  //* debug mode
+  /* debug mode
   frameRate(2);
   timeDiv = 8;
   barLen = width / timeDiv;//*/
