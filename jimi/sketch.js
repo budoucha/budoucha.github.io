@@ -169,7 +169,7 @@ function draw() {
       mode = 0;
       setup();
     }
-    if (keyDown("D")) {
+    if (keyDown("W")) {
       donate();
     }
   }
