@@ -19,18 +19,7 @@ function preload() {
 }
 
 function setup() {
-  bgm.setVolume(0.1);
-  bgm.playMode('restart');
-  s1.setVolume(0.1);
-  s1.playMode('sustain');
-  s2.setVolume(0.1);
-  s2.playMode('sustain');
-  s3.setVolume(0.1);
-  s3.playMode('sustain');
-  s4.setVolume(0.1);
-  s4.playMode('sustain');
   n = allSprites.length;
-
   for (i = 0; i < n; i++) {
     allSprites[0].remove();
   }
@@ -46,42 +35,32 @@ function setup() {
   jikiSpeedSlow = jikiSpeedDefault / 3;
   jikiSpeed = jikiSpeedDefault;
 
-
-  setupSprites();
-
-
-
-
+  maxLife = 16;
   score = 0;
   shtcntdwn = 0;
+  jikiDmg = 0;
+  jimiDmg = 0;
   pan = 0;
   frameCnt = 0;
+
   url1 = "https://payments.wikimedia.org/index.php?title=Special:GlobalCollectGateway&ffname=cc-vjma&recurring=false&language=ja&country=JP&payment_method=cc&payment_submethod=&gateway=&currency_code=JPY&frequency=onetime&amount=Other&amountGiven=";
   id = "input_amount_other_box"
+
+  setupSounds();
+  setupSprites();
 }
 
 function draw() {
   //print(allSprites.length);
   frameCnt++;
+
   if (mode == 1) {
-    update();
-    imageMode(CORNER);
-    pan = 0 - 2 * frameCnt % bgHeight;
-    if (pan < bg1.height) {
-      image(bg1, 0, pan, width, bg1.height);
-    }
-    if (pan + bg1.height < height) {
-      image(bg2, 0, pan + bg1.height, width, bg2.height);
-    }
-    if (pan + bgHeight < height) {
-      image(bg1, 0, bgHeight + pan, width, bg1.height);
-    }
+    drawbg();
 
     fill(0);
-
-    pop();
     drawSprites();
 
+    //当たり判定範囲描画(大きめ)
     ellipseMode(CENTER);
     strokeWeight(1);
     stroke(255);
@@ -89,21 +68,7 @@ function draw() {
     fill(0, 216, 255);
     ellipse(jiki.position.x, jiki.position.y - jikiHead, hgrid / 8);
 
-    // Life Gauge
-    rectMode(CORNER);
-    noStroke();
-    if (jikiLife > maxLife / 2) {
-      fill('#00FF00');
-    } else if (jikiLife > maxLife / 4) {
-      fill('#FFFF00');
-    } else {
-      fill('#FF0000');
-    }
-    rect(jiki.position.x - jiki.width / 2, jiki.position.y + jiki.height * 0.15, map(jikiLife, 0, maxLife, 0, jiki.width), jiki.width / 8);
-    strokeWeight(1);
-    stroke(36);
-    noFill();
-    rect(jiki.position.x - jiki.width / 2, jiki.position.y + jiki.height * 0.15, jiki.width, jiki.width / 8);
+    drawLife();
 
     // Damage Effect
     if (jimiDmg > 0) {
@@ -124,39 +89,13 @@ function draw() {
 
     noStroke();
     fill(0, 255, 255, 0.4);
-    triangle(jimi.position.x, height - hgrid/4, jimi.position.x - hgrid/4, height, jimi.position.x + hgrid/4, height);
+    triangle(jimi.position.x, height - hgrid / 4, jimi.position.x - hgrid / 4, height, jimi.position.x + hgrid / 4, height);
 
     drawTexts();
   } else if (mode === 0) {
-    imageMode(CORNER);
-    image(title, 0, 0);
-    push();
-    imageMode(CENTER)
-    translate(hhalf, vhalf);
-    rotate(radians(frameCount));
-    image(wikiLogoL, 0, 0);
-    pop();
-
-    if (keyDown("X")) {
-      mode = 1;
-      setup();
-    }
+    drawTitle();
   } else if (mode == 2) {
-    imageMode(CORNER);
-    image(gameover, 0, 0);
-    stroke(255);
-    fill(0);
-    textSize(64);
-    strokeWeight(4);
-    textAlign(CENTER);
-    text("￥" + score, hhalf, vgrid * 4);
-    if (keyDown("X")) {
-      mode = 0;
-      setup();
-    }
-    if (keyDown("W")) {
-      donate();
-    }
+    drawGameover();
   }
 
 }
@@ -326,18 +265,15 @@ function setupSprites() {
   jiki.addImage(jikiImg);
   jikiHead = jiki.height * 0.19;
   jiki.setCollider("circle", 0, -jikiHead, hgrid / 10);
-  maxLife = 36;
-  jikiDmg = 0;
   jikiLife = maxLife;
-  
-  bulletImg.resize(hgrid,hgrid);
+
+  bulletImg.resize(hgrid, hgrid);
 
   jimiImg.resize(hgrid * 1.44, hgrid * 1.44);
   jimi = createSprite(hhalf, vgrid, hgrid, hgrid);
   jimi.addImage(jimiImg);
   jimi.setCollider("rectangle", 0, 0, jimi.width, jimi.height * 0.6);
   jimiShotOffset = jimi.height * 0.6;
-  jimiDmg = 0;
 
   wikiLogoL.resize(hgrid * 1.8, hgrid * 1.8);
   wikiLogoM.resize(hgrid * 0.8, hgrid * 0.8);
@@ -356,6 +292,85 @@ function setupSprites() {
   vanishAreas.add(vanishAreaR);
 }
 
+function setupSounds() {
+  bgm.setVolume(0.1);
+  bgm.playMode('restart');
+  s1.setVolume(0.1);
+  s1.playMode('sustain');
+  s2.setVolume(0.1);
+  s2.playMode('sustain');
+  s3.setVolume(0.1);
+  s3.playMode('sustain');
+  s4.setVolume(0.1);
+  s4.playMode('sustain');
+}
+
+function drawbg() {
+  update();
+  imageMode(CORNER);
+  pan = 0 - 2 * frameCnt % bgHeight;
+  if (pan < bg1.height) {
+    image(bg1, 0, pan, width, bg1.height);
+  }
+  if (pan + bg1.height < height) {
+    image(bg2, 0, pan + bg1.height, width, bg2.height);
+  }
+  if (pan + bgHeight < height) {
+    image(bg1, 0, bgHeight + pan, width, bg1.height);
+  }
+}
+
+function drawLife() {
+  // Life Gauge
+  rectMode(CORNER);
+  noStroke();
+  if (jikiLife > maxLife / 2) {
+    fill('#00FF00');
+  } else if (jikiLife > maxLife / 4) {
+    fill('#FFFF00');
+  } else {
+    fill('#FF0000');
+  }
+  rect(jiki.position.x - jiki.width / 2, jiki.position.y + jiki.height * 0.15, map(jikiLife, 0, maxLife, 0, jiki.width), jiki.width / 8);
+  strokeWeight(1);
+  stroke(36);
+  noFill();
+  rect(jiki.position.x - jiki.width / 2, jiki.position.y + jiki.height * 0.15, jiki.width, jiki.width / 8);
+}
+
+
+function drawTitle() {
+  imageMode(CORNER);
+  image(title, 0, 0);
+  push();
+  imageMode(CENTER)
+  translate(hhalf, vhalf);
+  rotate(radians(frameCount));
+  image(wikiLogoL, 0, 0);
+  pop();
+  if (keyDown("X")) {
+    mode = 1;
+    setup();
+  }
+}
+
+function drawGameover() {
+  imageMode(CORNER);
+  image(gameover, 0, 0);
+  stroke(255);
+  fill(0);
+  textSize(64);
+  strokeWeight(4);
+  textAlign(CENTER);
+  text("￥" + score, hhalf, vgrid * 4);
+  if (keyDown("X")) {
+    mode = 0;
+    setup();
+  }
+  if (keyDown("W")) {
+    donate();
+  }
+}
 
 function donate() { //寄付ページに移動
   url = url1 + score;
