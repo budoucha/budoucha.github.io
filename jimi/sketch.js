@@ -10,10 +10,25 @@ function preload() {
   wikiLogoL = loadImage("data/wiki-Logo.png");
   wikiLogoM = loadImage("data/wiki-Logo.png");
   wikiLogoS = loadImage("data/wiki-Logo.png");
+  bgm = loadSound('data/bgm.mp3');
+  s1 = loadSound('data/s1.mp3');
+  s2 = loadSound('data/s2.mp3');
+  s3 = loadSound('data/s3.mp3');
+  s4 = loadSound('data/s4.mp3');
   mode = 0;
 }
 
 function setup() {
+  bgm.setVolume(0.1);
+  bgm.playMode('restart');
+  s1.setVolume(0.1);
+  s1.playMode('sustain');
+  s2.setVolume(0.1);
+  s2.playMode('sustain');
+  s3.setVolume(0.1);
+  s3.playMode('sustain');
+  s4.setVolume(0.1);
+  s4.playMode('sustain');
   n = allSprites.length;
   for (i = 0; i < n; i++) {
     allSprites[0].remove();
@@ -47,7 +62,7 @@ function setup() {
   jimi.addImage(jimiImg);
   jimi.setCollider("rectangle", 0, 0, jimi.width, jimi.height * 0.6);
   jimiDmg = 0;
-  
+
   wikiLogoL.resize(hgrid * 1.8, hgrid * 1.8);
   wikiLogoM.resize(hgrid * 0.8, hgrid * 0.8);
   wikiLogoS.resize(hgrid * 0.4, hgrid * 0.4);
@@ -177,6 +192,9 @@ function draw() {
 }
 
 function update() {
+  if (!bgm.isPlaying()) {
+    bgm.play();
+  }
   if (jikiLife < 1) {
     gameOver();
   }
@@ -232,7 +250,7 @@ function shoot() {
     myBullet.velocity.y = myBulletSpeed;
     myBullets.add(myBullet);
     myBullet.setCollider("circle", 0, 0, myBullet.width / 2);
-
+    s1.play();
     shtcntdwn = 3; //再装填時間
   }
 }
@@ -289,16 +307,19 @@ function jimiShoot(type) {
 }
 
 function jimiHit(jimiBullet, jiki) {
+  s4.play();
   jikiDmg = 25;
   jimiBullet.remove();
   jikiLife--;
 }
 
 function directHit() {
+  s4.play();
   jikiLife -= 2;
 }
 
 function myHit(jimi, myBullet) {
+  s2.play();
   score++;
   jimiDmg = 3;
   myBullet.remove();
@@ -309,9 +330,8 @@ function vanish(vanishing) {
 }
 
 function gameOver() {
-  //jimi.remove();
-  //jiki.remove();
   mode = 2;
+  bgm.stop();
   //document.getElementById("twitter-widget-0").src = document.getElementById("twitter-widget-0").src +"&text="+score+"%E5%86%86%E5%88%86%E5%A5%AE%E9%97%98%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%E3%80%82%20%20KIFU%20GAME%20-Wikipedia%E3%81%A8%E3%82%B8%E3%83%9F%E3%83%BC%E3%83%BB%E3%82%A6%E3%82%A7%E3%83%BC%E3%83%AB%E3%82%BA%E6%B0%8F%E3%81%AB%E5%AF%84%E4%BB%98%E3%81%99%E3%82%8B%E3%82%B2%E3%83%BC%E3%83%A0-";
 }
 
