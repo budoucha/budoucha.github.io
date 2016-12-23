@@ -1,13 +1,12 @@
 function preload() {
   pixelDensity(1);
-  title = loadImage("data/title.png");
-  subtitle = loadImage("data/subtitle.png");
+  title = loadImage("data/start.png");
+  gameover = loadImage("data/gameover.png");
   jimiImg = loadImage("data/jimi.jpg");
   jikiImg = loadImage("data/jiki.png");
-  bulletImg = loadImage("data/bullet.png");
+  bulletImg = loadImage("data/money_1a.png");
   bg1 = loadImage("data/bg1st.jpg");
   bg2 = loadImage("data/bg2nd.jpg");
-  aImg = loadImage("data/a.png");
   wikiLogoL = loadImage("data/wiki-Logo.png");
   wikiLogoM = loadImage("data/wiki-Logo.png");
   wikiLogoS = loadImage("data/wiki-Logo.png");
@@ -25,11 +24,6 @@ function setup() {
   vgrid = height / 8;
   hhalf = width / 2;
   vhalf = height / 2;
-
-  titleScale = width * 0.78 / title.width;
-  title.resize(title.width * titleScale, title.height * titleScale);
-  subtitleScale = width * 0.96 / subtitle.width;
-  subtitle.resize(subtitle.width * subtitleScale, subtitle.height * subtitleScale);
 
   jikiSpeedDefault = 6;
   jikiSpeedSlow = 2;
@@ -53,7 +47,7 @@ function setup() {
   jimi.addImage(jimiImg);
   jimi.setCollider("rectangle", 0, 0, jimi.width, jimi.height * 0.6);
   jimiDmg = 0;
-
+  
   wikiLogoL.resize(hgrid * 1.8, hgrid * 1.8);
   wikiLogoM.resize(hgrid * 0.8, hgrid * 0.8);
   wikiLogoS.resize(hgrid * 0.4, hgrid * 0.4);
@@ -148,32 +142,29 @@ function draw() {
     drawTexts();
   } else if (mode === 0) {
     background(0);
-    imageMode(CENTER);
-    image(title, hhalf, vgrid * 2);
-    image(subtitle, hhalf, vgrid * 2.9);
+    imageMode(CORNER);
+    image(title, 0, 0);
 
-    textAlign(CENTER);
-    textSize(36);
-    strokeWeight(3);
-    stroke(255);
-    fill(0);
-    text("move: ARROW KEY\nshot: [Z]\nslow mode: [SHIFT]\n\n\npress [X] to start", hhalf, vgrid * 5);
+    push();
+    imageMode(CENTER)
+    translate(hhalf, vhalf + 40);
+    rotate(radians(frameCount));
+    image(wikiLogoL, 0, 0);
+    pop();
+
     if (keyDown("X")) {
       mode = 1;
       setup();
     }
   } else if (mode == 2) {
     background(0);
-    textAlign(CENTER);
+    image(gameover, 0, 0);
     stroke(255);
     fill(0);
     textSize(64);
     strokeWeight(4);
-    text("GAME OVER", hhalf, vgrid * 2);
-    textSize(36);
-    strokeWeight(3);
-    text("SCORE:\n￥" + score, hhalf, vgrid * 3);
-    text("restart game: [X] \n\ndonate to Wikipedia\n( jump to wikimedia.org ): [D]  ", hhalf, vgrid * 5);
+    textAlign(CENTER);
+    text("￥" + score, hhalf, vgrid * 4);
     if (keyDown("X")) {
       mode = 0;
       setup();
@@ -240,7 +231,7 @@ function shoot() {
     myBullet.velocity.x = 0;
     myBullet.velocity.y = myBulletSpeed;
     myBullets.add(myBullet);
-    myBullet.setCollider("rectangle");
+    myBullet.setCollider("circle", 0, 0, myBullet.width / 2);
 
     shtcntdwn = 3; //再装填時間
   }
@@ -331,7 +322,7 @@ function drawTexts() {
   stroke(0);
   fill(255);
   text("fps: " + nf(frameRate(), 0, 2) + " ", width, height - vgrid / 2);
-  text("DONATE: ￥" + score + "  ", width, vgrid / 2);
+  text("寄付金額: ￥" + score + "  ", width, vgrid / 2);
 }
 
 
