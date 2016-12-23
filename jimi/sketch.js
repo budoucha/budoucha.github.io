@@ -52,13 +52,11 @@ function setup() {
 
 function draw() {
   //print(allSprites.length);
-  frameCnt++;
-
   if (mode == 1) {
+    update();
     drawbg();
-
-    fill(0);
     drawSprites();
+    drawDamages();
 
     //当たり判定範囲描画(大きめ)
     ellipseMode(CENTER);
@@ -69,23 +67,6 @@ function draw() {
     ellipse(jiki.position.x, jiki.position.y - jikiHead, hgrid / 8);
 
     drawLife();
-
-    // Damage Effect
-    if (jimiDmg > 0) {
-      noStroke();
-      fill(200, 255, 255, 0.09 * jimiDmg);
-      rectMode(CENTER);
-      rect(jimi.position.x, jimi.position.y, jimi.width * (1 + 0.08 * jimiDmg), jimi.height * (1 + 0.08 * jimiDmg));
-      jimiDmg--;
-    }
-
-    if (jikiDmg > 0) {
-      noStroke();
-      fill(20, 255, 255, 0.6);
-      ellipseMode(CENTER);
-      ellipse(jiki.position.x + randomGaussian(0, 10), jiki.position.y + randomGaussian(0, 10), jiki.width * (0.5 + 0.07 * jimiDmg));
-      jikiDmg--;
-    }
 
     noStroke();
     fill(0, 255, 255, 0.4);
@@ -101,6 +82,7 @@ function draw() {
 }
 
 function update() {
+  frameCnt++;
   if (!bgm.isPlaying()) {
     bgm.play();
   }
@@ -146,7 +128,6 @@ function readKey() {
   if (keyDown("Z")) {
     shoot();
   }
-
 }
 
 function shoot() {
@@ -224,6 +205,7 @@ function jimiHit(jimiBullet, jiki) {
 
 function directHit() {
   s4.play();
+  jikiDmg = 25;
   jikiLife -= 2;
 }
 
@@ -306,7 +288,6 @@ function setupSounds() {
 }
 
 function drawbg() {
-  update();
   imageMode(CORNER);
   pan = 0 - 2 * frameCnt % bgHeight;
   if (pan < bg1.height) {
@@ -317,6 +298,29 @@ function drawbg() {
   }
   if (pan + bgHeight < height) {
     image(bg1, 0, bgHeight + pan, width, bg1.height);
+  }
+}
+
+function drawDamages() {
+  colorMode(HSB);
+  noStroke();
+
+  if (jimiDmg > 0) {
+    fill(200, 255, 255, 0.09 * jimiDmg);
+    rectMode(CENTER);
+    rect(jimi.position.x, jimi.position.y, jimi.width * (1 + 0.08 * jimiDmg), jimi.height * (1 + 0.08 * jimiDmg));
+    jimiDmg--;
+  }
+
+  if (jikiDmg > 0) {
+    fill(20, 255, 255, 0.6);
+    ellipseMode(CENTER);
+    ellipse(jiki.position.x + randomGaussian(0, 8), jiki.position.y + randomGaussian(0, 8), jiki.width * (0.4 + jikiDmg / 100));
+    if (jikiLife <= maxLife / 8) {
+      ellipse(jiki.position.x + randomGaussian(0, 8), jiki.position.y + randomGaussian(0, 8), jiki.width * (0.4 + jikiDmg / 100));
+    } else {
+      jikiDmg--;
+    }
   }
 }
 
@@ -337,7 +341,6 @@ function drawLife() {
   noFill();
   rect(jiki.position.x - jiki.width / 2, jiki.position.y + jiki.height * 0.15, jiki.width, jiki.width / 8);
 }
-
 
 function drawTitle() {
   imageMode(CORNER);
