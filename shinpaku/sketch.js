@@ -4,8 +4,9 @@ function setup() {
   BPM = 135;
   fr = 60;
   frameRate(fr);
-  
-  k = int(fr / BPM);
+
+  k = int(fr / (BPM / 60));
+  print(k);
   L = R = 0;
   Ltime = 25;
   Rtime = 10;
@@ -13,7 +14,6 @@ function setup() {
 
 
 function draw() {
-  fill(255, 0, 0);
   background(0);
   if (frameCount % (3 * k) === 0) {
     L = Ltime;
