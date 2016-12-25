@@ -1,12 +1,21 @@
 function preload() {
   img = loadImage("data/rousoku.png");
+  rousoku = loadImage("data/rousoku.png");
 }
 
 function setup() {
   pixelDensity(1);
-  createCanvas(800, 600);
+  createCanvas(windowWidth, windowHeight * 0.8);
   imageMode(CENTER);
   rectMode(CORNER);
+
+  if (rousoku.height < height) {
+    rousoku = createImage(img.width, img.height);
+    rousoku.copy(img, 0, 0, img.width, img.height, 0, 0, rousoku.width, rousoku.height);
+  }
+  if (rousoku.height > height) {
+    rousoku.resize(img.width * height / img.height, height);
+  }
 
   mic = new p5.AudioIn();
   mic.enabled = true;
@@ -21,7 +30,7 @@ function setup() {
 function draw() {
   update();
   background(128);
-  image(img, width / 2, height - img.height / 3);
+  image(rousoku, width / 2, height - rousoku.height / 3);
 
   fill(0, dark);
   rect(0, 0, width, height);
@@ -44,5 +53,9 @@ function update() {
   if (micLevel > micLevelMax) { //to hold the biggest value.
     micLevelMax = micLevel;
   }
-  print(micLevel + " " + micLevelMax);
+  //print(micLevel + " " + micLevelMax);
+}
+
+function windowResized() {
+  setup();
 }
