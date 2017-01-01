@@ -14,7 +14,7 @@ function setup() {
   myCanvas.parent('sketch-holder');
 
   coinImg.resize(height / 12, height / 12);
-  boxImg.resize(boxImg.width*height / 4 / boxImg.height, height/4);
+  boxImg.resize(boxImg.width * height / 4 / boxImg.height, height / 4);
 
   saisens = new Group();
   saisenbako = createSprite(width / 2, height / 4, 1, 1);
@@ -28,7 +28,7 @@ function setup() {
 
 function draw() {
   background(255);
-  if (mouseIsPressed) {
+  if (mouseIsPressed || keyDown("SPACE")) {
     throwSaisen();
   }
   drawSprites();
@@ -44,6 +44,7 @@ function draw() {
 function throwSaisen() {
   saisen = createSprite(mouseX + randomGaussian(0, 5), mouseY + randomGaussian(0, 5), 1, 1);
   saisen.addImage(coinImg);
+  saisen.life = 64;
   angle = HALF_PI - atan2(saisenbako.position.x - mouseX, saisenbako.position.y - mouseY);
   saisen.velocity.x = height / 12 * cos(angle);
   saisen.velocity.y = height / 12 * sin(angle);
