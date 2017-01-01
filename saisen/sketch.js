@@ -13,7 +13,7 @@ function setup() {
   var myCanvas = createCanvas(windowWidth, windowHeight * 0.8);
   myCanvas.parent('sketch-holder');
 
-  coinImg.resize(width / 16, width / 16);
+  coinImg.resize(height / 12, height / 12);
   boxImg.resize(boxImg.width*height / 4 / boxImg.height, height/4);
 
   saisens = new Group();
@@ -45,8 +45,8 @@ function throwSaisen() {
   saisen = createSprite(mouseX + randomGaussian(0, 5), mouseY + randomGaussian(0, 5), 1, 1);
   saisen.addImage(coinImg);
   angle = HALF_PI - atan2(saisenbako.position.x - mouseX, saisenbako.position.y - mouseY);
-  saisen.velocity.x = width / 16 * cos(angle);
-  saisen.velocity.y = width / 16 * sin(angle);
+  saisen.velocity.x = height / 12 * cos(angle);
+  saisen.velocity.y = height / 12 * sin(angle);
   saisen.setCollider("circle", 0, 0, saisen.width / 2.1);
   saisens.add(saisen);
 }
