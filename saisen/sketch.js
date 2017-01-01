@@ -10,11 +10,11 @@ function setup() {
   for (i = 0; i < n; i++) {
     allSprites[0].remove();
   }
-  var myCanvas = createCanvas(windowWidth, windowHeight*0.8);
+  var myCanvas = createCanvas(windowWidth, windowHeight * 0.8);
   myCanvas.parent('sketch-holder');
 
   coinImg.resize(width / 16, width / 16);
-  boxImg.resize(width / 4, boxImg.height * width / 4 / boxImg.width);
+  boxImg.resize(boxImg.width*height / 4 / boxImg.height, height/4);
 
   saisens = new Group();
   saisenbako = createSprite(width / 2, height / 4, 1, 1);
@@ -22,7 +22,7 @@ function setup() {
 
   s1.setVolume(0.1);
   s1.playMode('sustain');
-  
+
   kingaku = 0;
 }
 
@@ -34,11 +34,11 @@ function draw() {
   drawSprites();
 
   saisenbako.overlap(saisens, charin);
-  
+
   fill(0);
   textSize(24);
   textAlign(CENTER);
-  text('￥'+kingaku,width/2,height*15/16);
+  text('￥' + kingaku, width / 2, height * 15 / 16);
 }
 
 function throwSaisen() {
@@ -54,5 +54,5 @@ function throwSaisen() {
 function charin(saisenbako, saisen) {
   s1.play();
   saisen.remove();
-  kingaku+=5;
+  kingaku += 5;
 }
