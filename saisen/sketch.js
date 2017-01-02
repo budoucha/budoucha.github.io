@@ -17,12 +17,15 @@ function setup() {
 
   coinImg.resize(height / 12, height / 12);
   boxImg.resize(boxImg.width * height / 4 / boxImg.height, height / 4);
-  if(tutoImg.width>width*0.8){
-  tutoImg.resize(width * 0.8, tutoImg.height * width * 0.8 / tutoImg.width)
+  if (tutoImg.width > width * 0.8) {
+    tutoImg.resize(width * 0.8, tutoImg.height * width * 0.8 / tutoImg.width)
   }
   saisens = new Group();
   saisenbako = createSprite(width / 2, height / 4, 1, 1);
   saisenbako.addImage(boxImg);
+  tonyuguchi=saisenbako.height*0.4;
+  saisenbakoOffset= -(saisenbako.height-tonyuguchi*1.2)/2
+  saisenbako.setCollider("rectangle", 0, saisenbakoOffset, saisenbako.width-coinImg.width*2,tonyuguchi);
 
   useQuadTree(true);
 
@@ -58,9 +61,10 @@ function throwSaisen() {
   saisen = createSprite(mouseX + randomGaussian(0, 5), mouseY + randomGaussian(0, 5), 1, 1);
   saisen.addImage(coinImg);
   saisen.life = 64;
-  angle = HALF_PI - atan2(saisenbako.position.x - mouseX, saisenbako.position.y - mouseY);
-  saisen.velocity.x = height / 16 * cos(angle);
-  saisen.velocity.y = height / 16 * sin(angle);
+  speed=tonyuguchi*0.6
+  angle = HALF_PI - atan2(saisenbako.position.x - mouseX, saisenbako.position.y + saisenbakoOffset - mouseY);
+  saisen.velocity.x = speed * cos(angle);
+  saisen.velocity.y = speed * sin(angle);
   saisen.setCollider("circle", 0, 0, saisen.width / 2.1);
   saisens.add(saisen);
 }
