@@ -45,9 +45,8 @@ function draw() {
     throwSaisen();
   }
 
-  saisenbako.overlap(saisens, charin);
-
   drawSprites();
+  saisenbako.overlap(saisens, charin);
 
   fill(0);
   textSize(24);
