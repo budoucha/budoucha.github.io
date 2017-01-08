@@ -27,7 +27,7 @@ function setup() {
   saisenbakoOffset= -(saisenbako.height-tonyuguchi*1.2)/2
   saisenbako.setCollider("rectangle", 0, saisenbakoOffset, saisenbako.width-coinImg.width*2,tonyuguchi);
 
-  useQuadTree(true);
+  useQuadTree(false);
 
   s1.setVolume(0.1);
   s1.playMode('sustain');
