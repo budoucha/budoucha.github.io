@@ -19,6 +19,7 @@ function preload() {
 }
 
 function setup() {
+  useQuadTree(false);
   n = allSprites.length;
   for (i = 0; i < n; i++) {
     allSprites[0].remove();

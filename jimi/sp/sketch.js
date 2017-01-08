@@ -24,6 +24,7 @@ function preload() {
 }
 
 function setup() {
+  useQuadTree(false);
   n = allSprites.length;
   for (i = 0; i < n; i++) {
     allSprites[0].remove();
@@ -57,7 +58,6 @@ function setup() {
   url1 = "https://payments.wikimedia.org/index.php?title=Special:GlobalCollectGateway&ffname=cc-vjma&recurring=false&language=ja&country=JP&payment_method=cc&payment_submethod=&gateway=&currency_code=JPY&frequency=onetime&amount=Other&amountGiven=";
   id = "input_amount_other_box"
 
-  useQuadTree(true);
   setupSounds();
   setupSprites();
 
