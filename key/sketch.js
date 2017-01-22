@@ -14,7 +14,8 @@ function setup() {
 
 function draw() {
   background(0);
-
+  short = min(width,height);
+  
   if (abs(rotationY) > 60) {
     keyOpen();
   }
@@ -27,23 +28,22 @@ function draw() {
   if(locked===true){fill(255,0,0,128);}else{fill(0, 255, 255, 128);}
 
   textAlign(CENTER);
-  textSize(width / 8);
+  textSize(short / 8);
   if (locked) {t = "LOCKED"} else { t = "OPEN"}
   text(t, width/2,height/2);
   
   push();
   translate(width / 2, height * 6 / 8);
-
   
   angle = radians(rotationY + 45 * cos(radians(frameCount * 2)));
   angled = cos(angle) ;
   angled_ = sin(angle)/3;
 
-  r = angled * width / 8;
-  tw = angled * -width / 8
-  th = width / 16;
-  rw = width / 12;
-  rh = width / 6;
+  r = angled * short / 8;
+  tw = angled * -short / 8
+  th = short / 16;
+  rw = short / 12;
+  rh = short / 6;
 
   triangle(-r + tw/2 - angled_*(-r + tw/2), 0,
            -r + tw/2 + angled_*(-r + tw/2), th - angled_*th,
@@ -74,3 +74,5 @@ function keyLock() {
     locked = true;
   }
 }
+
+function windowResized(){setup();}
