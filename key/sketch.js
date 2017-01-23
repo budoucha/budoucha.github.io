@@ -10,6 +10,7 @@ function setup() {
   s1.setVolume(1.0);
   s1.playMode('sustain');
   locked = false;
+  vbt=100;
 }
 
 function draw() {
@@ -91,6 +92,7 @@ function draw() {
 function keyOpen() {
   if (locked === true) {
     s1.play();
+    setTimeout(vib,210);
     background(255);
     locked = false;
   }
@@ -99,9 +101,14 @@ function keyOpen() {
 function keyLock() {
   if (locked === false) {
     s2.play();
+    setTimeout(vib,240);
     background(255);
     locked = true;
   }
+}
+
+function vib(){
+  navigator.vibrate(vbt);
 }
 
 function windowResized() {
