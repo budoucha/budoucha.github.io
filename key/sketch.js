@@ -38,10 +38,10 @@ function draw() {
   } else {
     t = "OPEN"
   }
-  text(t, width / 2, height / 2);
+  text(t, width / 2, height * 3 / 8);
 
   push();
-  translate(width / 2, height * 6 / 8);
+  translate(width / 2, height * 5 / 8);
 
   angle = radians(rotationY + 60 * cos(radians(frameCount * 2)));
 
