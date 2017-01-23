@@ -14,47 +14,76 @@ function setup() {
 
 function draw() {
   background(0);
-  short = min(width,height);
-  
-  if (abs(rotationY) > 60) {
+  short = min(width, height);
+
+  if (-65 < rotationY && rotationY < -55) {
     keyOpen();
   }
 
-  if (rotationY > 15 && rotationY < 30) {
+  if (10 < rotationY && rotationY < 20) {
     keyLock();
   }
 
-  noStroke();  
-  if(locked===true){fill(255,0,0,128);}else{fill(0, 255, 255, 128);}
+  noStroke();
+  if (locked === true) {
+    fill(255, 0, 0, 128);
+  } else {
+    fill(0, 255, 255, 128);
+  }
 
   textAlign(CENTER);
   textSize(short / 8);
-  if (locked) {t = "LOCKED"} else { t = "OPEN"}
-  text(t, width/2,height/2);
-  
+  if (locked) {
+    t = "LOCKED"
+  } else {
+    t = "OPEN"
+  }
+  text(t, width / 2, height / 2);
+
   push();
   translate(width / 2, height * 6 / 8);
-  
-  angle = radians(rotationY + 45 * cos(radians(frameCount * 2)));
-  angled = cos(angle) ;
-  angled_ = sin(angle)/3;
 
-  r = angled * short / 8;
-  tw = angled * -short / 8
+  angle = radians(rotationY + 60 * cos(radians(frameCount * 2)));
+
+  angled = cos(angle);
+  angled_ = sin(angle) / 3;
+
+  tr = short / 8;
+  tw = short / 8;
   th = short / 16;
-  rw = short / 12;
+
+  rw = short / 10;
   rh = short / 6;
 
-  triangle(-r + tw/2 - angled_*(-r + tw/2), 0,
-           -r + tw/2 + angled_*(-r + tw/2), th - angled_*th,
-           -r + tw/2 +angled_*(-r + tw/2), -th-angled_*(-th));
-  triangle( r - tw/2 - angled_*( r - tw/2), 0,  
-            r - tw/2 + angled_*( r - tw/2), th + angled_*th,
-            r - tw/2 +angled_*( r - tw/2), -th+angled_*(-th));
-  quad(rw + angled_*rw, rh + angled_*rh,
-  rw + angled_*rw, -rh - angled_*rh,
-  -rw - angled_*rw, -rh + angled_*rh,
-  -rw - angled_*rw, rh - angled_*rh);
+  if (locked === true) {
+    triangle(-tr * angled + tw * angled_ + (tr * angled - tw * angled_) * angled_, 0,
+             -tr * angled - tw * angled_ + (tr * angled + tw * angled_) * angled_, -th + (th) * angled_,
+             -tr * angled - tw * angled_ + (tr * angled + tw * angled_) * angled_, +th - (th) * angled_);
+
+    triangle(+tr * angled - tw * angled_ + (tr * angled - tw * angled_) * angled_, 0,
+             +tr * angled + tw * angled_ + (tr * angled + tw * angled_) * angled_, -th - (th) * angled_,
+             +tr * angled + tw * angled_ + (tr * angled + tw * angled_) * angled_, +th + (th) * angled_);
+
+  } else {
+    triangle(-tr * angled - tw * angled_ + (tr * angled + tw * angled_) * angled_,0,
+             -tr * angled + tw * angled_ + (tr * angled - tw * angled_) * angled_, -th + (th) * angled_,
+             -tr * angled + tw * angled_ + (tr * angled - tw * angled_) * angled_, th - (th) * angled_);
+
+    triangle(tr * angled + tw * angled_ + (tr * angled + tw * angled_) * angled_, 0,
+             tr * angled - tw * angled_ + (tr * angled - tw * angled_) * angled_, -th - (th) * angled_,
+             tr * angled - tw * angled_ + (tr * angled - tw * angled_) * angled_, +th + (th) * angled_);
+  }
+
+  quad(-rw * angled + (rw * angled) * angled_, (-rh) + (rh) * angled_,
+       -rw * angled + (rw * angled) * angled_, (+rh) - (rh) * angled_,
+        rw * angled + (rw * angled) * angled_, (+rh) + (rh) * angled_,
+        rw * angled + (rw * angled) * angled_, (-rh) - (rh) * angled_
+  );
+
+
+  noFill();
+  strokeWeight(2);
+  stroke(0);
 
   pop();
 }
@@ -75,4 +104,6 @@ function keyLock() {
   }
 }
 
-function windowResized(){setup();}
+function windowResized() {
+  setup();
+}
