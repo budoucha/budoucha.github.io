@@ -9,6 +9,8 @@ function setup() {
   masterVolume(1.0);
   s1.setVolume(1.0);
   s1.playMode('sustain');
+  s2.setVolume(1.0);
+  s2.playMode('sustain');
   locked = false;
   vbt=100;
 }
