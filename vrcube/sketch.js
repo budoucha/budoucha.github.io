@@ -49,8 +49,7 @@ function update(){
   rotZ=0;
   rotZ = radians(rotationZ) * (-1*(abs(rotationX)<=90) + (abs(rotationX)>90));
   rotX = cos(rotZ) * radians(-rotationX) + sin(rotZ) * radians(-rotationY);
-  rotY = sin(radians(rotationZ)) * radians(-rotationX) + cos(radians(rotationZ)) * radians(rotationY)
-  println(rotZ);
+  rotY = sin(radians(rotationZ)) * radians(-rotationX) + cos(radians(rotationZ)) * radians(rotationY);
 }
 
 function windowResized() {
