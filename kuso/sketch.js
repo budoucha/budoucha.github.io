@@ -25,7 +25,7 @@ function draw() {
     //copy(htuImage,0,0,htuImage.width,htuImage.height,width*0.2 , height*0.2 , width*0.6,height*0.6);
     image(htuImage, width / 2, height / 2);
 
-    if (accelerationZ > 30) {
+    if (accelerationZ > 35) {
         if (hasClapped === false) {
             handClap();
             hasClapped = true;
