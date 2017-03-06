@@ -3,7 +3,7 @@ var bg, tSize, hasClapped;
 
 function preload() {
     htuImage = loadImage("assets/HTU.png")
-    handClapSound = loadSound("assets/hall-clapping-hands1.mp3");
+    handClapSound = loadSound("assets/hall-clapping-hands.mp3");
 }
 
 function setup() {
@@ -14,7 +14,7 @@ function setup() {
     frameRate(30);
     bg = 255;
     masterVolume(1.0);
-    handClapSound.setVolume(0.8);
+    handClapSound.setVolume(1.0);
     handClapSound.playMode('sustain');
     hasClapped = false;
 }
@@ -38,11 +38,12 @@ function draw() {
     drawHands();
 }
 
-/*
-function mousePressed(){
-    handClap();
-}*/
 
+function mousePressed() {
+    if (accelerationZ == 0){
+        handClap();
+    }
+}
 
 function handClap() {
     handClapSound.play();
