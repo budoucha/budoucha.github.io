@@ -36,9 +36,11 @@ function draw() {
 
 
 function hitBall() {
+  hit_sound.setVolume(1.0);
   hit_sound.play();
   vib = function(){navigator.vibrate(60);}
   setTimeout(vib,75);
+  setTimeout(bounce,500)
 }
 
 
@@ -46,4 +48,9 @@ function mousePressed() {
     if (accelerationZ == 0){
         hitBall();
     }
+}
+
+function bounce(){
+  hit_sound.setVolume(0.4);
+  hit_sound.play();
 }
