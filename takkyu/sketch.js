@@ -7,7 +7,7 @@ function preload() {
 
 function setup() {
   pixelDensity(1);
-  var myCanvas = createCanvas(windowWidth * 0.6, windowHeight * 0.75);
+  var myCanvas = createCanvas(windowWidth * 0.95, windowHeight * 0.8);
   myCanvas.parent('sketch-holder');
 
   masterVolume(1.0);
