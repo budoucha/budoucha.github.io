@@ -37,9 +37,9 @@ function draw() {
 
 function hitBall() {
   hit_sound.play();
-  navigator.vibrate(80);
+  vib = function(){navigator.vibrate(60);}
+  setTimeout(vib,75);
 }
-
 
 
 function mousePressed() {
