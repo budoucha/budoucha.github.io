@@ -37,6 +37,7 @@ function draw() {
 
 function hitBall() {
   hit_sound.play();
+  navigator.vibrate(80);
 }
 
 
