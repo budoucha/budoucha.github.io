@@ -1,5 +1,6 @@
-var hasHit, hasFell;
+var hasHit, hasFell, isLocked;
 var hit_sound, fall_sound;
+var acceleration_norm, norm_max;
 
 function preload() {
   hit_sound = loadSound("assets/table-tennis-ball.mp3");
@@ -21,6 +22,8 @@ function setup() {
   background(255, 0, 0);
   hasHit = false;
   hasFell = false;
+  isLocked = false;
+  norm_max = 0;
 }
 
 function draw() {
@@ -28,14 +31,27 @@ function draw() {
   fill(216, 168, 128);
   rect(0, height * 4 / 5, width, height * 4 / 5);
 
-  if (accelerationZ > 70) {
+
+  acceleration_norm = sqrt(sq(accelerationZ) + sq(accelerationX) + sq(accelerationY));
+
+  //norm_max = (norm_max < acceleration_norm) ? acceleration_norm : norm_max;
+
+  /*fill(0);
+  textSize(48);
+  text(nfp(norm_max, 3, 2), width / 2, height / 2);
+  */
+  if (accelerationZ > 70 || (accelerationZ > 30 && acceleration_norm > 120)) {
     if (hasHit === false) {
       hitBall();
       hasHit = true;
+      isLocked = true;
+      setTimeout(unlock, 400);
     }
   }
   else {
-    hasHit = false;
+    if (isLocked == false) {
+      hasHit = false;
+    }
   }
 }
 
@@ -56,6 +72,7 @@ function mousePressed() {
   if (accelerationZ == 0) {
     hitBall();
   }
+  //norm_max = 0;
 }
 
 function bounce() {
@@ -69,5 +86,8 @@ function checkFall() {
     fall_sound.setVolume(1.0);
     fall_sound.play();
   }
+}
 
+function unlock() {
+  isLocked = false;
 }
