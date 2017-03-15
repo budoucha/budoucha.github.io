@@ -1,5 +1,5 @@
-var hasHit, hasFell
-var hit_sound, fall_sound
+var hasHit, hasFell;
+var hit_sound, fall_sound;
 
 function preload() {
   hit_sound = loadSound("assets/table-tennis-ball.mp3");
@@ -28,7 +28,7 @@ function draw() {
   fill(216, 168, 128);
   rect(0, height * 4 / 5, width, height * 4 / 5);
 
-  if (accelerationZ > 80) {
+  if (accelerationZ > 70) {
     if (hasHit === false) {
       hitBall();
       hasHit = true;
