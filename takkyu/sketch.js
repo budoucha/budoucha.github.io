@@ -28,7 +28,7 @@ function draw() {
   fill(216, 168, 128);
   rect(0, height * 4 / 5, width, height * 4 / 5);
 
-  if (accelerationZ > 90) {
+  if (accelerationZ > 80) {
     if (hasHit === false) {
       hitBall();
       hasHit = true;
@@ -45,8 +45,8 @@ function hitBall() {
   hit_sound.play();
   vib = function () { navigator.vibrate(60); }
   setTimeout(vib, 75);
-  setTimeout(bounce, 500);
-  setTimeout(checkFall, 1200);
+  setTimeout(bounce, 400);
+  setTimeout(checkFall, 900);
   hasFell = false;
   fall_sound.stop(); //stop even in playing
 }
