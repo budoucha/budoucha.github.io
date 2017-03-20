@@ -1,5 +1,6 @@
 function preload() {
-  img = loadImage("assets/japari_no.bmp");
+  //img = loadImage("assets/japari_no.bmp");
+  img = loadImage("assets/i.bmp");
 }
 
 
