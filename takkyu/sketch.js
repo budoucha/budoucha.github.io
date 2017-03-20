@@ -40,7 +40,7 @@ function draw() {
   textSize(48);
   text(nfp(norm_max, 3, 2), width / 2, height / 2);
   */
-  if (accelerationZ > 70 || (accelerationZ > 30 && acceleration_norm > 120)) {
+  if (accelerationZ > 45 || (accelerationZ > 30 && acceleration_norm > 70)) {
     if (hasHit === false) {
       hitBall();
       hasHit = true;
