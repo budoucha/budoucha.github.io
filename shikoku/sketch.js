@@ -1,8 +1,8 @@
 function preload() {
   y = 0;
-  nihon = loadImage("data/kaigansenwithoutshikoku.png");
-  shikoku = loadImage("data/kaigansenonlyshikoku.png");
-  button = loadImage("data/button.png");
+  nihon = loadImage("assets/kaigansenwithoutshikoku.png");
+  shikoku = loadImage("assets/kaigansenonlyshikoku.png");
+  button = loadImage("assets/button.png");
 }
 
 function setup() {
