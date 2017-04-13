@@ -8,11 +8,12 @@ function setup() {
 }
 
 function draw() {
-  weight = width / 360;
+  weight = height / 360;
   strokeWeight(weight);
+  translate(0,height);
   for (i = 0; i < 360; i++) {
     stroke((i + frameCount * 5) % 360, 100, 100);
-    line(i * weight, 0, i * weight, height);
+    line(0, -i * weight, width, -i * weight);
   }
 }
 
