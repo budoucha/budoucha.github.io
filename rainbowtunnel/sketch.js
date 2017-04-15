@@ -6,12 +6,12 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   colorMode(HSB);
   background(180,100,100);
-  long = min(width,height);
+  long = max(width,height);
 }
 
 function draw() {
   steps = 120;
-  weight = height / steps;
+  weight = long / steps;
   strokeWeight(weight);
   translate(width/2,height/2);
   rotate(frameCount);
