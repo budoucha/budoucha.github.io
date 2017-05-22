@@ -72,7 +72,7 @@ function throwSaisen() {
 function charin(saisenbako, saisen) {
   s1.play();
   saisen.remove();
-  kingaku += 5;
+  kingaku += 1;
 }
 
 
