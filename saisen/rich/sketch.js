@@ -54,7 +54,7 @@ function draw() {
   fill(0);
   textSize(24);
   textAlign(CENTER);
-  text('￥' + kingaku + "0000", width / 2, height * 0.8);
+  text('￥' + kingaku + "000000", width / 2, height * 0.8);
 }
 
 function throwSaisen() {
