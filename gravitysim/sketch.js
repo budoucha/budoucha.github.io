@@ -57,6 +57,7 @@ function Particle(x, y, vx, vy) {
   this.ay;
   this.px;
   this.py;
+  this.enable=true;
 
   this.update = function () {
     push();
@@ -95,5 +96,6 @@ function Particle(x, y, vx, vy) {
 }
 
 function mouseClicked() {
+  particles = [];
   setup();
 }
