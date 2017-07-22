@@ -29,13 +29,12 @@ function spinner() {
   dr = (30 < rotationZ && rotationZ < 330) ? rotationZ - pRotationZ : rz - prz;
   if (!pRotationZ) { dr = 0.0001; }
 
-  ar = 0.1 * radians(dr / abs(dr) * (dr * dr));
+  ar = 0.1 * -radians(dr / abs(dr) * (dr * dr));
   vr += 0.3 * ar;
   r += vr;
   if (touches.length > 0) { vr = ar = 0; }
   rotate(r);
   vr = 0.995 * vr;
-
 
 }
 
