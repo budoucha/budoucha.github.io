@@ -1,5 +1,6 @@
 let htuImage, handClapSound;
 let bg, tSize, hasClapped;
+let initialState = true;
 
 function preload() {
     htuImage = loadImage("assets/HTU.png")
@@ -24,6 +25,16 @@ function draw() {
     imageMode(CENTER);
     //copy(htuImage,0,0,htuImage.width,htuImage.height,width*0.2 , height*0.2 , width*0.6,height*0.6);
     image(htuImage, width / 2, height / 2);
+    if (initialState) {
+        fill(255, 168);
+        rect(0, 0, width, height); //メイン画像を薄く
+        textSize(64);
+        textAlign(CENTER);
+        fill(0);
+        noStroke();
+        text("tap to start", width / 2, height / 2);
+        return;
+    }
 
     if (accelerationZ > 35) {
         if (hasClapped === false) {
@@ -40,7 +51,11 @@ function draw() {
 
 
 function mousePressed() {
-    if (accelerationZ == 0){
+    if (initialState) {
+        initialState = false;
+        return;
+    }
+    if (accelerationZ == 0) {
         handClap();
     }
 }
@@ -49,7 +64,6 @@ function handClap() {
     handClapSound.play();
     tSize = 128;
 }
-
 
 function drawHands() {
     textSize(tSize);
