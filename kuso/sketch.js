@@ -1,5 +1,5 @@
-var htuImage, handClapSound;
-var bg, tSize, hasClapped;
+let htuImage, handClapSound;
+let bg, tSize, hasClapped;
 
 function preload() {
     htuImage = loadImage("assets/HTU.png")
@@ -8,7 +8,7 @@ function preload() {
 
 function setup() {
     pixelDensity(1);
-    var myCanvas = createCanvas(600, 800, P2D);
+    const myCanvas = createCanvas(600, 800, P2D);
     myCanvas.parent('sketch-holder');
 
     frameRate(30);
