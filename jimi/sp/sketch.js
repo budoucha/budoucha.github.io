@@ -55,7 +55,7 @@ function setup() {
   pan = 0;
   frameCnt = 0;
 
-  url1 = "https://payments.wikimedia.org/index.php?title=Special:GlobalCollectGateway&ffname=cc-vjma&recurring=false&language=ja&country=JP&payment_method=cc&payment_submethod=&gateway=&currency_code=JPY&frequency=onetime&amount=Other&amountGiven=";
+  url1 = "https://payments.wikimedia.org/index.php?title=Special:PaypalExpressGateway&appeal=JimmyQuote&currency=JPY&payment_method=paypal&recurring=0&uselang=ja&amount=";
   id = "input_amount_other_box"
 
   setupSounds();
