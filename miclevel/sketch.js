@@ -1,3 +1,6 @@
+let initialState = true;
+let mic;
+
 function preload() {
   imageMode(CENTER);
   pixelDensity(1);
@@ -19,19 +22,18 @@ function setup() {
   timeDiv = 512;
   barLen = width / timeDiv;
   bg = 0;
-
-  mic = new p5.AudioIn();
-  mic.enabled = true;
-  mic.start();
-  amp = 1.0;
-
-  /* debug mode
-  frameRate(2);
-  timeDiv = 8;
-  barLen = width / timeDiv;//*/
 }
 
 function draw() {
+  if (initialState) {
+    background(0);
+    fill(255, 128);
+    noStroke();
+    textSize(tsize);
+    textAlign(CENTER, CENTER);
+    text("tap to start", hhalf, vhalf);
+    return;
+  }
   update();
   background(bg);
 
@@ -131,6 +133,14 @@ function mouseDragged() {
 }
 
 function mouseReleased() {
+  if (initialState) {
+    initialState = false;
+    mic = new p5.AudioIn();
+    mic.enabled = true;
+    mic.start();
+    amp = 1.0;  
+    return;
+  }
   if (dragged === false) {
     amp = 1;
     bg = 0;
