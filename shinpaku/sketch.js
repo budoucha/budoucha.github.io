@@ -19,7 +19,6 @@ function draw() {
   if (frameCount % (1 * T) === 0) {
     R = Rtime;
   }
-  //print(frameRate());
 
   if (L > 0) {
     fill(255, 0, 0, L * (255 / Ltime));
