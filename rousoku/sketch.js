@@ -1,3 +1,6 @@
+let initialState = true;
+let mic;
+
 function preload() {
   img = loadImage("data/rousoku.png");
   rousoku = loadImage("data/rousoku.png");
