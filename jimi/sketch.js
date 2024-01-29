@@ -27,10 +27,10 @@ function setup() {
 
   var myCanvas = createCanvas(600, 800);
   myCanvas.parent('sketch-holder');
-  hgrid = width / 8;
-  vgrid = height / 8;
-  hhalf = width / 2;
-  vhalf = height / 2;
+  hGrid = width / 8;
+  vUnit = height / 8;
+  hHalf = width / 2;
+  vHalf = height / 2;
 
   jikiSpeedDefault = height / 100;
   jikiSpeedSlow = jikiSpeedDefault / 3;
@@ -65,13 +65,13 @@ function draw() {
     stroke(255);
     colorMode(HSB);
     fill(0, 216, 255);
-    ellipse(jiki.position.x, jiki.position.y - jikiHead, hgrid / 8);
+    ellipse(jiki.position.x, jiki.position.y - jikiHead, hGrid / 8);
 
     drawLife();
 
     noStroke();
     fill(0, 255, 255, 0.4);
-    triangle(jimi.position.x, height - hgrid / 4, jimi.position.x - hgrid / 4, height, jimi.position.x + hgrid / 4, height);
+    triangle(jimi.position.x, height - hGrid / 4, jimi.position.x - hGrid / 4, height, jimi.position.x + hGrid / 4, height);
 
     drawTexts();
   } else if (mode === 0) {
@@ -147,7 +147,7 @@ function shoot() {
 }
 
 function jimiMove() {
-  jimi.position.x = hhalf + width / 3 * sin(frameCnt / 108);
+  jimi.position.x = hHalf + width / 3 * sin(frameCnt / 108);
   if (frameCnt % 47 === 0) {
     jimiShoot(0);
   }
@@ -233,8 +233,8 @@ function drawTexts() {
   strokeWeight(3);
   stroke(0);
   fill(255);
-  text("fps: " + nf(frameRate(), 0, 2) + " ", width, height - vgrid / 2);
-  text("寄付金額: ￥" + score + "  ", width, vgrid / 2);
+  text("fps: " + nf(frameRate(), 0, 2) + " ", width, height - vUnit / 2);
+  text("寄付金額: ￥" + score + "  ", width, vUnit / 2);
 }
 
 
@@ -243,24 +243,24 @@ function setupSprites() {
   jimiBullets = new Group();
   vanishAreas = new Group();
 
-  jikiImg.resize(hgrid * 0.8, hgrid * 0.8);
-  jiki = createSprite(hhalf, vgrid * 7, hgrid, hgrid);
+  jikiImg.resize(hGrid * 0.8, hGrid * 0.8);
+  jiki = createSprite(hHalf, vUnit * 7, hGrid, hGrid);
   jiki.addImage(jikiImg);
   jikiHead = jiki.height * 0.19;
-  jiki.setCollider("circle", 0, -jikiHead, hgrid / 10);
+  jiki.setCollider("circle", 0, -jikiHead, hGrid / 10);
   jikiLife = maxLife;
 
-  bulletImg.resize(hgrid, hgrid);
+  bulletImg.resize(hGrid, hGrid);
 
-  jimiImg.resize(hgrid * 1.44, hgrid * 1.44);
-  jimi = createSprite(hhalf, vgrid, hgrid, hgrid);
+  jimiImg.resize(hGrid * 1.44, hGrid * 1.44);
+  jimi = createSprite(hHalf, vUnit, hGrid, hGrid);
   jimi.addImage(jimiImg);
   jimi.setCollider("rectangle", 0, 0, jimi.width, jimi.height * 0.6);
   jimiShotOffset = jimi.height * 0.6;
 
-  wikiLogoL.resize(hgrid * 1.8, hgrid * 1.8);
-  wikiLogoM.resize(hgrid * 0.8, hgrid * 0.8);
-  wikiLogoS.resize(hgrid * 0.4, hgrid * 0.4);
+  wikiLogoL.resize(hGrid * 1.8, hGrid * 1.8);
+  wikiLogoM.resize(hGrid * 0.8, hGrid * 0.8);
+  wikiLogoS.resize(hGrid * 0.4, hGrid * 0.4);
 
   title.resize(width, width / title.width * title.height);
   gameover.resize(width, width / gameover.width * gameover.height);
@@ -269,9 +269,9 @@ function setupSprites() {
   bg2.resize(width, width / bg2.width * bg2.height);
   bgHeight = bg1.height + bg2.height;
 
-  vanishAreaL = createSprite(-hgrid * 1.8, vhalf, 10, height);
+  vanishAreaL = createSprite(-hGrid * 1.8, vHalf, 10, height);
   vanishAreas.add(vanishAreaL);
-  vanishAreaR = createSprite(width + hgrid * 1.8, vhalf, 10, height);
+  vanishAreaR = createSprite(width + hGrid * 1.8, vHalf, 10, height);
   vanishAreas.add(vanishAreaR);
 }
 
@@ -348,7 +348,7 @@ function drawTitle() {
   image(title, 0, 0);
   push();
   imageMode(CENTER)
-  translate(hhalf, vhalf);
+  translate(hHalf, vHalf);
   rotate(radians(frameCount));
   image(wikiLogoL, 0, 0);
   pop();
@@ -366,7 +366,7 @@ function drawGameover() {
   textSize(64);
   strokeWeight(4);
   textAlign(CENTER);
-  text("￥" + score, hhalf, vgrid * 4);
+  text("￥" + score, hHalf, vUnit * 4);
   if (keyDown("X")) {
     mode = 0;
     setup();
